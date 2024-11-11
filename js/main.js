@@ -53,10 +53,11 @@ $(document).ready(function () {
     function showLevelTransition(level, callback) {
       const transitionElement = $('#level-transition');
       transitionElement.text(`Nivå ${level}`);
-      transitionElement.fadeIn(800, function () { // Fade in under 1 sekund
+      //transitionElement.fadeIn(1000, function () { // Fade in under 1 sekund
+      transitionElement.fadeIn(function () { // Fade in under 1 sekund
         setTimeout(() => {
-          transitionElement.fadeOut(800, callback); // Fade out under 1 sekund och kör callback
-        }, 800);
+          transitionElement.fadeOut(1000, callback); // Fade out under 1 sekund och kör callback
+        }, 1000);
       });
     }
 

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kim's Fruity Adventure</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <h1>Kim's Fruity Adventure</h1>
+
+  <div id="game">
+    <div id="level-transition"></div>
+
+    <!-- Nivå 1 -->
+    <div class="level" id="level1" style="display: none;">
+      <div class="player"></div>
+      <div class="fruit" style="left: 280px; top: 100px;"></div>
+      <div class="fruit" style="left: 260px; top: 120px;"></div>
+      <div class="fruit" style="left: 300px; top: 120px;"></div>
+      <div class="fruit" style="left: 240px; top: 140px;"></div>
+      <div class="fruit" style="left: 280px; top: 140px;"></div>
+      <div class="fruit" style="left: 320px; top: 140px;"></div>
+    </div>
+
+    <!-- Nivå 2 -->
+    <div class="level" id="level2" style="display: none;">
+      <div class="player"></div>
+      <div class="platform" style="left: 450px; top: 150px;"></div>
+      <div class="fruit" style="left: 270px; top: 230px;"></div>
+      <div class="fruit" style="left: 457px; top: 120px;"></div>
+    </div>
+
+    <!-- Nivå 3 -->
+    <div class="level" id="level3">
+      <div class="player"></div>
+      <div class="platform" style="left: 100px; top: 150px;"></div>
+      <div class="platform" style="left: 280px; top: 150px;"></div>
+      <div class="platform" style="left: 450px; top: 150px;"></div>
+      <div class="fruit" style="left: 107px; top: 120px;"></div>
+      <div class="fruit" style="left: 287px; top: 120px;"></div>
+      <div class="fruit" style="left: 457px; top: 120px;"></div>
+    </div>
+
+    <!-- Nivå 4 -->
+    <div class="level" id="level4" style="display: none;">
+      <div class="player"></div>
+      <div class="platform" style="left: 100px; top: 230px;"></div>
+      <div class="platform" style="left: 300px; top: 180px;"></div>
+      <div class="platform" style="left: 500px; top: 120px;"></div>
+      <div class="fruit" style="left: 110px; top: 200px;"></div>
+      <div class="fruit" style="left: 310px; top: 150px;"></div>
+      <div class="fruit" style="left: 510px; top: 90px;"></div>
+    </div>
+
+    <!-- Nivå 5 -->
+    <div class="level" id="level5" style="display: none;">
+      <div class="player"></div>
+      <div class="platform" style="left: 300px; top: 230px;"></div>
+      <div class="platform" style="left: 450px; top: 180px;"></div>
+      <div class="platform" style="left: 180px; top: 130px;"></div>
+      <div class="fruit" style="left: 130px; top: 230px;"></div>
+      <div class="fruit" style="left: 310px; top: 200px;"></div>
+      <div class="fruit" style="left: 460px; top: 150px;"></div>
+      <div class="fruit" style="left: 10px; top: 10px;"></div>
+    </div>
+
+    <!-- Nivå 6 -->
+    <div class="level" id="level6" style="display: none;">
+      <div class="player"></div>
+      <div class="fruit" style="left: 100px; top: 230px;"></div>
+      <div class="fruit" style="left: 150px; top: 230px;"></div>
+      <div class="fruit" style="left: 200px; top: 230px;"></div>
+      <div class="fruit" style="left: 250px; top: 230px;"></div>
+      <div class="fruit" style="left: 300px; top: 230px;"></div>
+      <div class="fruit" style="left: 350px; top: 230px;"></div>
+      <div class="fruit" style="left: 400px; top: 230px;"></div>
+      <div class="fruit" style="left: 450px; top: 230px;"></div>
+      <div class="fruit" style="left: 500px; top: 230px;"></div>
+      <div class="fruit" style="left: 550px; top: 230px;"></div>
+    </div>
+
+    <!-- Nivå Klar Skärm -->
+    <div id="levelComplete" style="display: none;">
+      <p>Alla frukter upphämtade!</p>
+      <button id="nextLevel">Nästa nivå <img src="img/misc/next.png"></button>
+    </div>
+
+    <div id="ground"></div>
+  </div><!-- end game-container -->
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

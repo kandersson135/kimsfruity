@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #211f30;
+    background-image: url(../img/bg/bgBorder.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    font-family: 'Concert One', cursive;
+    overflow: hidden;
+    margin: 0;
+}
+
+h1 {
+  font-family: 'Chewy', cursive;
+  /* font-family: 'Gloria Hallelujah', cursive; */
+  color: #e9c46a;
+  position: absolute;
+  top: 20px;
+  text-align: center;
+  text-shadow: 2px 2px 1px rgba(20, 20, 20, 0.8);
+}
+
+/* #game {
+    position: relative;
+    width: 600px;
+    height: 300px;
+    background-color: #f0f0f0;
+    overflow: hidden;
+}
+
+#ground {
+  background: brown;
+  bottom: 0;
+  height: 20px;
+  position: absolute;
+  width: 100%;
+} */
+
+#game {
+  position: relative;
+  width: 600px;
+  height: 300px;
+  background-color: #f0f0f0;
+  overflow: hidden;
+}
+
+#level-transition {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Svart bakgrund med 80% opacitet */
+  display: none; /* Dölj elementet initialt */
+  z-index: 10; /* Se till att den täcker allt */
+  color: white;
+  font-size: 32px;
+  text-shadow: 2px 2px 1px rgba(20, 20, 20, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 32px;
+  background: brown;
+  background-image: url('../img/misc/ground.png');
+  background-repeat: repeat-x;
+  z-index: 1; /* Marken är bakom spelaren */
+}
+
+.level {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.player {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.platform {
+  position: absolute;
+  width: 48px;
+  height: 16px;
+  background-color: #8b4513;
+  background-image: url('../img/misc/platform.png');
+}
+
+.fruit {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background-image: url('../img/misc/apple.gif');
+  border-radius: 50%;
+}
+
+#levelComplete {
+  border-radius: 8px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 20px;
+}
+
+#levelComplete p {
+  font-size: 18px;
+  text-shadow: 2px 2px 1px rgba(20, 20, 20, 0.8);
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+#levelComplete button {
+  background: #fff;
+  border: none;
+  box-shadow: 2px 2px #000;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Concert One', cursive;
+  font-size: 18px;
+  padding: 7px 9px 9px 9px;
+}
+
+#levelComplete button img {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  top: 2px;
+}
+
+#levelComplete button:active {
+  position: relative;
+  top: 2px;
+  left: 2px;
+  box-shadow: none;
+}

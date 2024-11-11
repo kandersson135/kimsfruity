@@ -37,11 +37,11 @@ $(document).ready(function () {
       'url(img/bg/yellow.png)',
     ];
 
-    // Get a random index from the backgrounds array
-    var randomIndex = Math.floor(Math.random() * backgrounds.length);
-
-    // Set the random background image to the #game-container
-    $('#game').css('background', backgrounds[randomIndex]);
+    // // Get a random index from the backgrounds array
+    // var randomIndex = Math.floor(Math.random() * backgrounds.length);
+    //
+    // // Set the random background image to the #game-container
+    // $('#game').css('background', backgrounds[randomIndex]);
 
   	// Function to move the background sideways
     function moveBackground() {
@@ -74,6 +74,10 @@ $(document).ready(function () {
     // }
 
     function initLevel(level) {
+      // Slumpa en bakgrund varje gång en ny nivå startar
+      const randomIndex = Math.floor(Math.random() * backgrounds.length);
+      $('#game').css('background', backgrounds[randomIndex]);
+
       hasLevelCompleted = false;
       $('.level').hide();
       $(`#level${level}`).show();

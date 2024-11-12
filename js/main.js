@@ -262,7 +262,10 @@ $(document).ready(function () {
       hasLevelCompleted = true; // Markera att nivån är avslutad
       levelupAudio.currentTime = 0;
       levelupAudio.play();
-      levelComplete.show();
+      // levelComplete.show();
+      setTimeout(() => {
+        levelComplete.show();
+    }, 400);
     }
   }
 
@@ -277,13 +280,34 @@ $(document).ready(function () {
     );
   }
 
-  $('#nextLevel').click(function () {
+  // $('#nextLevel').click(function () {
+  //   if (currentLevel < totalLevels) {
+  //     currentLevel++;
+  //     initLevel(currentLevel);
+  //   } else {
+  //     alert('Grattis! Du har klarat alla nivåer!');
+  //     location.reload();
+  //   }
+  // });
+
+  // Funktion för att gå till nästa nivå eller avsluta spelet
+  function goToNextLevel() {
     if (currentLevel < totalLevels) {
       currentLevel++;
       initLevel(currentLevel);
     } else {
       alert('Grattis! Du har klarat alla nivåer!');
       location.reload();
+    }
+  }
+
+  // Använd click-event för knappen
+  $('#nextLevel').click(goToNextLevel);
+
+  // Lyssna på Enter-tangenten
+  $(document).keydown(function (e) {
+    if (e.key === 'Enter' && $('#levelComplete').is(':visible')) {
+      goToNextLevel();
     }
   });
 

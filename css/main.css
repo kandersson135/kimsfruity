@@ -93,12 +93,51 @@ h1 {
   background-repeat: no-repeat;
 }
 
-.platform {
+.platform1 {
   position: absolute;
   width: 48px;
   height: 16px;
   background-color: #8b4513;
-  background-image: url('../img/misc/platform.png');
+  background-image: url('../img/misc/platform1.png');
+}
+
+.platform2 {
+  position: absolute;
+  width: 48px;
+  height: 16px;
+  background-color: #8b4513;
+  background-image: url('../img/misc/platform2.png');
+}
+
+.platform3 {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background-color: #8b4513;
+  background-image: url('../img/misc/platform3.png');
+}
+
+.platform4 {
+  position: absolute;
+  width: 48px;
+  height: 5px;
+  background-color: #8b4513;
+  background-image: url('../img/misc/platform4.png');
+}
+
+.platform5 {
+  position: absolute;
+  width: 48px;
+  height: 16px;
+  background-color: #8b4513;
+  background-image: url('../img/misc/platform5.png');
+}
+
+.platform6 {
+  position: absolute;
+  width: 48px;
+  height: 16px;
+  background-color: transparent;
 }
 
 .fruit {
@@ -106,7 +145,6 @@ h1 {
   width: 32px;
   height: 32px;
   background-image: url('../img/misc/apple.gif');
-  border-radius: 50%;
 }
 
 #levelComplete {

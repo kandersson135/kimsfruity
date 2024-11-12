@@ -1,6 +1,6 @@
 $(document).ready(function () {
     let currentLevel = 1;
-    const totalLevels = 6;
+    const totalLevels = 10;
     let player;
     const game = $('#game');
     const levelComplete = $('#levelComplete');

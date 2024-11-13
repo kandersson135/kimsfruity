@@ -1,155 +1,184 @@
 $(document).ready(function () {
-    let currentLevel = 1;
-    const totalLevels = 10;
-    let player;
-    const game = $('#game');
-    const levelComplete = $('#levelComplete');
-    let isGameRunning = false;
-    let hasLevelCompleted = false;
+  let currentLevel = 1;
+  const totalLevels = 11;
+  let player;
+  const game = $('#game');
+  const levelComplete = $('#levelComplete');
+  let isGameRunning = false;
+  let hasLevelCompleted = false;
+  let levelRestarted = false; // Flagga för att förhindra flera återställningar
 
-    let keys = {};
-    let playerSpeed = 3;
-    let jumpPower = 10;
-    let gravity = 0.5;
-    let velocityY = 0;
-    let onGround = false;
-    let collectedFruits = 0;
-    let currentDirection = 'right'; // Håller reda på vilken riktning spelaren är vänd åt
+  let keys = {};
+  let playerSpeed = 3;
+  let jumpPower = 10;
+  let gravity = 0.5;
+  let velocityY = 0;
+  let onGround = false;
+  let collectedFruits = 0;
+  let currentDirection = 'right'; // Håller reda på vilken riktning spelaren är vänd åt
 
-    let bgAudio = new Audio('audio/bg.ogg');
-    let jumpAudio = new Audio('audio/jump.ogg');
-    let biteAudio = new Audio('audio/bite.wav');
-    let levelupAudio = new Audio('audio/levelup.mp3');
-    bgAudio.volume = 0.1;
-    bgAudio.loop = true;
-    biteAudio.volume = 0.3;
-    jumpAudio.volume = 0.5;
-    levelupAudio.volume = 0.3;
+  let bgAudio = new Audio('audio/bg.ogg');
+  let jumpAudio = new Audio('audio/jump.ogg');
+  let biteAudio = new Audio('audio/bite.wav');
+  let levelupAudio = new Audio('audio/levelup.mp3');
+  let hurtAudio = new Audio('audio/hurt.wav');
+  bgAudio.volume = 0.1;
+  bgAudio.loop = true;
+  biteAudio.volume = 0.3;
+  jumpAudio.volume = 0.5;
+  levelupAudio.volume = 0.3;
+  hurtAudio.volume = 0.3;
 
-    // Array of background images
-    var backgrounds = [
-      'url(img/bg/blue.png)',
-      'url(img/bg/brown.png)',
-      'url(img/bg/gray.png)',
-      'url(img/bg/green.png)',
-      'url(img/bg/pink.png)',
-      'url(img/bg/purple.png)',
-      'url(img/bg/yellow.png)',
-    ];
+  // Array of background images
+  var backgrounds = [
+    'url(img/bg/blue.png)',
+    'url(img/bg/brown.png)',
+    'url(img/bg/gray.png)',
+    'url(img/bg/green.png)',
+    'url(img/bg/pink.png)',
+    'url(img/bg/purple.png)',
+    'url(img/bg/yellow.png)',
+  ];
 
-    // // Get a random index from the backgrounds array
-    // var randomIndex = Math.floor(Math.random() * backgrounds.length);
-    //
-    // // Set the random background image to the #game-container
-    // $('#game').css('background', backgrounds[randomIndex]);
+  // // Get a random index from the backgrounds array
+  // var randomIndex = Math.floor(Math.random() * backgrounds.length);
+  //
+  // // Set the random background image to the #game-container
+  // $('#game').css('background', backgrounds[randomIndex]);
 
-  	// Function to move the background sideways
-    function moveBackground() {
-      $('#game').animate({
-        'background-position-y': '+=2px' // Adjust the speed by changing the value
-      }, 100, 'linear', moveBackground);
-    }
+	// Function to move the background sideways
+  function moveBackground() {
+    $('#game').animate({
+      'background-position-y': '+=2px' // Adjust the speed by changing the value
+    }, 100, 'linear', moveBackground);
+  }
 
-    function showLevelTransition(level, callback) {
-      const transitionElement = $('#level-transition');
-      transitionElement.text(`Nivå ${level}`);
-      //transitionElement.fadeIn(1000, function () { // Fade in under 1 sekund
-      transitionElement.fadeIn(function () { // Fade in under 1 sekund
-        setTimeout(() => {
-          transitionElement.fadeOut(1000, callback); // Fade out under 1 sekund och kör callback
-        }, 1000);
-      });
-    }
-
-
-    // function initLevel(level) {
-    //     $('.level').hide();
-    //     $(`#level${level}`).show();
-    //     player = $(`#level${level} .player`);
-    //     resetPlayerPosition();
-    //     updateFruits();
-    //     levelComplete.hide();
-    //     setPlayerIdle(); // Sätt spelaren till idle när nivån starta
-    //     moveBackground(); // Call the function to start the animation
-    //     bgAudio.play(); // Play background music
-    // }
-
-    function initLevel(level) {
-      // Slumpa en bakgrund varje gång en ny nivå startar
-      const randomIndex = Math.floor(Math.random() * backgrounds.length);
-      $('#game').css('background', backgrounds[randomIndex]);
-
-      hasLevelCompleted = false;
-      $('.level').hide();
-      $(`#level${level}`).show();
-
-      // Sätt spelaren till rätt element
-      player = $(`#level${level} .player`);
-      resetPlayerPosition();
-      updateFruits();
-      levelComplete.hide();
-      setPlayerIdle();
-      moveBackground(); // Call the function to start the animation
-      bgAudio.play(); // Play background music
-
-      // Visa övergången och starta spelet efteråt
-      showLevelTransition(level, function() {
-        if (!isGameRunning) {
-          isGameRunning = true; // Förhindra att gameLoop körs flera gånger
-          gameLoop();
-        }
-      });
-    }
+  function showLevelTransition(level, callback) {
+    const transitionElement = $('#level-transition');
+    transitionElement.text(`Nivå ${level}`);
+    //transitionElement.fadeIn(1000, function () { // Fade in under 1 sekund
+    transitionElement.fadeIn(function () { // Fade in under 1 sekund
+      setTimeout(() => {
+        transitionElement.fadeOut(800, callback); // Fade out under 1 sekund och kör callback
+      }, 800);
+    });
+  }
 
 
+  // function initLevel(level) {
+  //     $('.level').hide();
+  //     $(`#level${level}`).show();
+  //     player = $(`#level${level} .player`);
+  //     resetPlayerPosition();
+  //     updateFruits();
+  //     levelComplete.hide();
+  //     setPlayerIdle(); // Sätt spelaren till idle när nivån starta
+  //     moveBackground(); // Call the function to start the animation
+  //     bgAudio.play(); // Play background music
+  // }
 
-    // function resetPlayerPosition() {
-    //     player.css({ left: '50px', top: '450px' });
-    //     velocityY = 0;
-    //     onGround = false;
-    // }
+  function initLevel(level) {
+    // Slumpa en bakgrund varje gång en ny nivå startar
+    const randomIndex = Math.floor(Math.random() * backgrounds.length);
+    $('#game').css('background', backgrounds[randomIndex]);
 
-    function resetPlayerPosition() {
-      const groundHeight = $('#ground').height(); // Höjden på marken
-      const playerHeight = player.height(); // Höjden på spelaren
-      const gameHeight = game.height(); // Höjden på spelområdet
+    hasLevelCompleted = false;
+    $('.level').hide();
+    $(`#level${level}`).show();
 
-      // Placera spelaren precis ovanpå marken
-      player.css({
-        left: '50px',
-        top: `${gameHeight - groundHeight - playerHeight}px`
-      });
+    // Sätt spelaren till rätt element
+    player = $(`#level${level} .player`);
+    resetPlayerPosition();
+    updateFruits();
+    levelComplete.hide();
+    setPlayerIdle();
+    moveBackground(); // Call the function to start the animation
+    bgAudio.play(); // Play background music
 
-      velocityY = 0;
-      onGround = true; // Sätt spelaren som "på marken" vid start
-    }
+    // Visa övergången och starta spelet efteråt
+    showLevelTransition(level, function() {
+      if (!isGameRunning) {
+        isGameRunning = true; // Förhindra att gameLoop körs flera gånger
+        gameLoop();
+      }
+    });
+  }
 
-    function updateFruits() {
-      collectedFruits = 0;
-      $(`#level${currentLevel} .fruit`).show();
-    }
+  function initResetLevel(level) {
+    hasLevelCompleted = false;
 
-    // Ställ in spelarens bakgrundsbild beroende på riktning och tillstånd
-    function setPlayerIdle() {
-      player.css('background-image', currentDirection === 'right' ? 'url(img/char/idle-r.gif)' : 'url(img/char/idle-l.gif)');
-    }
+    // Återställ räknaren för insamlade frukter
+    collectedFruits = 0;
 
-    function setPlayerRun() {
-      player.css('background-image', currentDirection === 'right' ? 'url(img/char/run-r.gif)' : 'url(img/char/run-l.gif)');
-    }
+    // Visa endast den aktuella nivån utan att ändra bakgrunden eller musik
+    $(`#level${level}`).show();
 
-    function setPlayerJump() {
-      player.css('background-image', currentDirection === 'right' ? 'url(img/char/jump-r.gif)' : 'url(img/char/jump-l.gif)');
-    }
+    // Återställ spelarens position och status
+    player = $(`#level${level} .player`);
+    resetPlayerPosition();
+    setPlayerIdle();
 
-    $(document).keydown(function (e) {
-      keys[e.keyCode] = true;
+    // Återställ alla frukter så att de visas igen
+    $(`#level${currentLevel} .fruit`).each(function () {
+        $(this).show();
     });
 
-    $(document).keyup(function (e) {
-      keys[e.keyCode] = false;
-      setPlayerIdle(); // Sätt till idle när tangenterna släpps
+    levelComplete.hide(); // Dölj rutan för nivå klar
+
+    // Sätt igång spelet igen om det inte redan körs
+    if (!isGameRunning) {
+        isGameRunning = true;
+        gameLoop();
+    }
+  }
+
+  // function resetPlayerPosition() {
+  //     player.css({ left: '50px', top: '450px' });
+  //     velocityY = 0;
+  //     onGround = false;
+  // }
+
+  function resetPlayerPosition() {
+    const groundHeight = $('#ground').height(); // Höjden på marken
+    const playerHeight = player.height(); // Höjden på spelaren
+    const gameHeight = game.height(); // Höjden på spelområdet
+
+    // Placera spelaren precis ovanpå marken
+    player.css({
+      left: '50px',
+      top: `${gameHeight - groundHeight - playerHeight}px`
     });
+
+    velocityY = 0;
+    onGround = true; // Sätt spelaren som "på marken" vid start
+  }
+
+  function updateFruits() {
+    collectedFruits = 0;
+    $(`#level${currentLevel} .fruit`).show();
+  }
+
+  // Ställ in spelarens bakgrundsbild beroende på riktning och tillstånd
+  function setPlayerIdle() {
+    player.css('background-image', currentDirection === 'right' ? 'url(img/char/idle-r.gif)' : 'url(img/char/idle-l.gif)');
+  }
+
+  function setPlayerRun() {
+    player.css('background-image', currentDirection === 'right' ? 'url(img/char/run-r.gif)' : 'url(img/char/run-l.gif)');
+  }
+
+  function setPlayerJump() {
+    player.css('background-image', currentDirection === 'right' ? 'url(img/char/jump-r.gif)' : 'url(img/char/jump-l.gif)');
+  }
+
+  $(document).keydown(function (e) {
+    keys[e.keyCode] = true;
+  });
+
+  $(document).keyup(function (e) {
+    keys[e.keyCode] = false;
+    setPlayerIdle(); // Sätt till idle när tangenterna släpps
+  });
 
   function gameLoop() {
     if (!player.length) return;
@@ -199,13 +228,81 @@ $(document).ready(function () {
 
     player.css('top', newTop);
 
+    $(`#level${currentLevel} .spike`).each(function () {
+      const spike = $(this);
+      const spikeTop = spike.position().top;
+      const spikeLeft = spike.position().left;
+      const spikeRight = spikeLeft + spike.width();
+      const spikeBottom = spikeTop + spike.height();
+
+      const playerTop = parseInt(player.css('top'));
+      const playerBottom = playerTop + player.height();
+      const playerLeft = parseInt(player.css('left'));
+      const playerRight = playerLeft + player.width();
+
+      // Kontrollera kollision mellan spelaren och hindret
+      if (playerBottom > spikeTop && playerTop < spikeBottom &&
+        playerRight > spikeLeft && playerLeft < spikeRight) {
+        if (!levelRestarted) {
+          levelRestarted = true; // Förhindra flera återställningar
+          restartLevel();
+        }
+      }
+    });
+
+
     // Kontrollera kollision med plattformar
+    // $(`#level${currentLevel} .platform`).each(function () {
+    //   const platform = $(this);
+    //   if (collision(player, platform) && velocityY >= 0) {
+    //     onGround = true;
+    //     velocityY = 0;
+    //     player.css('top', platform.position().top - player.height());
+    //   }
+    // });
+
     $(`#level${currentLevel} .platform`).each(function () {
       const platform = $(this);
-      if (collision(player, platform) && velocityY >= 0) {
+      const platformTop = platform.position().top;
+      const platformLeft = platform.position().left;
+      const platformRight = platformLeft + platform.width();
+      const platformBottom = platformTop + platform.height();
+
+      const playerTop = parseInt(player.css('top'));
+      const playerBottom = playerTop + player.height();
+      const playerLeft = parseInt(player.css('left'));
+      const playerRight = playerLeft + player.width();
+
+      const isFalling = velocityY > 0;
+      const isJumping = velocityY < 0;
+
+      // Kontrollera om spelaren landar på plattformen
+      if (isFalling && playerBottom >= platformTop && playerBottom <= platformTop + 10 &&
+        playerRight > platformLeft && playerLeft < platformRight) {
+        // Spelaren landar på plattformen
         onGround = true;
         velocityY = 0;
-        player.css('top', platform.position().top - player.height());
+        player.css('top', platformTop - player.height());
+      }
+
+      // Förhindra att spelaren hoppar genom plattformen underifrån
+      else if (isJumping && playerTop <= platformBottom && playerBottom > platformTop &&
+        playerRight > platformLeft && playerLeft < platformRight) {
+        // Stoppa uppåtgående rörelse när spelaren träffar plattformens undersida
+        velocityY = 0;
+        player.css('top', platformBottom);
+      }
+
+      // Förhindra att spelaren går igenom plattformen från vänster
+      else if (playerRight > platformLeft && playerRight < platformLeft + 10 &&
+        playerBottom > platformTop && playerTop < platformBottom) {
+        player.css('left', platformLeft - player.width());
+      }
+
+      // Förhindra att spelaren går igenom plattformen från höger
+      else if (playerLeft < platformRight && playerLeft > platformRight - 10 &&
+        playerBottom > platformTop && playerTop < platformBottom) {
+        player.css('left', platformRight);
       }
     });
 
@@ -257,6 +354,58 @@ $(document).ready(function () {
     requestAnimationFrame(gameLoop);
   }
 
+  let isHurtSoundPlaying = false;
+
+  function restartLevel() {
+    // Lägg till en skak-animation
+    player.addClass('shake');
+
+    // Spela endast upp ljudet om det inte redan spelas
+    if (!isHurtSoundPlaying) {
+      hurtAudio.currentTime = 0; // Starta från början
+      hurtAudio.play();
+      isHurtSoundPlaying = true; // Sätt flaggan till true
+    }
+
+    // Ta bort skak-animationen efter 300 ms
+    setTimeout(function() {
+      player.removeClass('shake');
+    }, 300);
+
+    // Återställ nivån efter 800 ms
+    setTimeout(() => {
+      levelRestarted = false;
+      isHurtSoundPlaying = false; // Återställ flaggan
+      initResetLevel(currentLevel);
+    }, 800);
+  }
+
+  function restartLevel() {
+    // Lägg till en skak-animation
+    player.addClass('shake');
+
+    // Spela endast upp ljudet om det inte redan spelas
+    if (!isHurtSoundPlaying) {
+      hurtAudio.currentTime = 0; // Starta från början
+      hurtAudio.play();
+      isHurtSoundPlaying = true; // Sätt flaggan till true
+    }
+
+    // Ta bort skak-animationen efter 300 ms
+    setTimeout(function() {
+      player.removeClass('shake');
+    }, 300);
+
+    // Återställ nivån efter 800 ms
+    setTimeout(() => {
+      levelRestarted = false;
+      isHurtSoundPlaying = false; // Återställ flaggan
+      initResetLevel(currentLevel);
+    }, 800);
+  }
+
+  $('#restartBtn').click(restartLevel);
+
   function checkLevelCompletion() {
     if (!hasLevelCompleted && collectedFruits === $(`#level${currentLevel} .fruit`).length) {
       hasLevelCompleted = true; // Markera att nivån är avslutad
@@ -306,7 +455,7 @@ $(document).ready(function () {
 
   // Lyssna på Enter-tangenten
   $(document).keydown(function (e) {
-    if (e.key === 'Enter' && $('#levelComplete').is(':visible')) {
+    if ((e.key === 'Enter' || e.key === ' ') && $('#levelComplete').is(':visible')) {
       goToNextLevel();
     }
   });

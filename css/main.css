@@ -49,6 +49,16 @@ h1 {
   overflow: hidden;
 }
 
+#restartBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+#restartBtn:active {
+  top: 12px;
+}
+
 #level-transition {
   position: absolute;
   top: 0;
@@ -147,6 +157,14 @@ h1 {
   background-image: url('../img/misc/apple.gif');
 }
 
+.spike {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background-image: url('../img/misc/spikes.png');
+  background-size: cover;
+}
+
 #levelComplete {
   border-radius: 8px;
   position: absolute;
@@ -189,4 +207,22 @@ h1 {
   top: 2px;
   left: 2px;
   box-shadow: none;
+}
+
+/* shake animation */
+.shake {animation: shake 0.3s; animation-iteration-count: 1;}
+
+/* animations */
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
 }

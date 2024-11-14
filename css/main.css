@@ -108,7 +108,7 @@ h1 {
   width: 48px;
   height: 16px;
   background-color: #8b4513;
-  background-image: url('../img/misc/platform1.png');
+  background-image: url('../img/platforms/platform1.png');
 }
 
 .platform2 {
@@ -116,7 +116,7 @@ h1 {
   width: 48px;
   height: 16px;
   background-color: #8b4513;
-  background-image: url('../img/misc/platform2.png');
+  background-image: url('../img/platforms/platform2.png');
 }
 
 .platform3 {
@@ -124,7 +124,7 @@ h1 {
   width: 32px;
   height: 32px;
   background-color: #8b4513;
-  background-image: url('../img/misc/platform3.png');
+  background-image: url('../img/platforms/platform3.png');
 }
 
 .platform4 {
@@ -132,7 +132,7 @@ h1 {
   width: 48px;
   height: 5px;
   background-color: #8b4513;
-  background-image: url('../img/misc/platform4.png');
+  background-image: url('../img/platforms/platform4.png');
 }
 
 .platform5 {
@@ -140,7 +140,7 @@ h1 {
   width: 48px;
   height: 16px;
   background-color: #8b4513;
-  background-image: url('../img/misc/platform5.png');
+  background-image: url('../img/platforms/platform5.png');
 }
 
 .platform6 {
@@ -150,18 +150,26 @@ h1 {
   background-color: transparent;
 }
 
-.fruit {
+.apple {
   position: absolute;
   width: 32px;
   height: 32px;
-  background-image: url('../img/misc/apple.gif');
+  background-image: url('../img/fruits/apple.gif');
 }
 
 .spike {
   position: absolute;
   width: 16px;
   height: 16px;
-  background-image: url('../img/misc/spikes.png');
+  background-image: url('../img/traps/spikes.png');
+  background-size: cover;
+}
+
+.fire {
+  position: absolute;
+  width: 16px;
+  height: 32px;
+  background-image: url('../img/traps/fire.gif');
   background-size: cover;
 }
 

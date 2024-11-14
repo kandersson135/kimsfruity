@@ -7,6 +7,8 @@ $(document).ready(function () {
   let isGameRunning = false;
   let hasLevelCompleted = false;
   let levelRestarted = false; // Flagga för att förhindra flera återställningar
+  let isHurtSoundPlaying = false;
+  let controlsLocked = false;
 
   let keys = {};
   let playerSpeed = 3;
@@ -21,7 +23,7 @@ $(document).ready(function () {
   let jumpAudio = new Audio('audio/jump.ogg');
   let biteAudio = new Audio('audio/bite.wav');
   let levelupAudio = new Audio('audio/levelup.mp3');
-  let hurtAudio = new Audio('audio/hurt.wav');
+  let hurtAudio = new Audio('audio/fail.wav');
   bgAudio.volume = 0.1;
   bgAudio.loop = true;
   biteAudio.volume = 0.3;
@@ -106,6 +108,7 @@ $(document).ready(function () {
 
   function initResetLevel(level) {
     hasLevelCompleted = false;
+    controlsLocked = false; // Lås upp kontrollerna
 
     // Återställ räknaren för insamlade frukter
     collectedFruits = 0;
@@ -183,25 +186,27 @@ $(document).ready(function () {
   function gameLoop() {
     if (!player.length) return;
 
-    // Rörelse åt vänster och höger
-    if (keys[37] || keys[65]) { // Vänster piltangent eller A
-      currentDirection = 'left';
-      setPlayerRun();
-      player.css('left', Math.max(parseInt(player.css('left')) - playerSpeed, 0));
-    }
-    if (keys[39] || keys[68]) { // Höger piltangent eller D
-      currentDirection = 'right';
-      setPlayerRun();
-      player.css('left', Math.min(parseInt(player.css('left')) + playerSpeed, game.width() - player.width()));
-    }
+    if (!controlsLocked) {
+      // Rörelse åt vänster och höger
+      if (keys[37] || keys[65]) { // Vänster piltangent eller A
+        currentDirection = 'left';
+        setPlayerRun();
+        player.css('left', Math.max(parseInt(player.css('left')) - playerSpeed, 0));
+      }
+      if (keys[39] || keys[68]) { // Höger piltangent eller D
+        currentDirection = 'right';
+        setPlayerRun();
+        player.css('left', Math.min(parseInt(player.css('left')) + playerSpeed, game.width() - player.width()));
+      }
 
-    // Hopp (bara om på marken)
-    if ((keys[38] || keys[87]) && onGround) {
-      jumpAudio.currentTime = 0; // Spela upp från början om ljudet redan
-      jumpAudio.play();
-      setPlayerJump();
-      velocityY = -jumpPower;
-      onGround = false;
+      // Hopp (bara om på marken)
+      if ((keys[38] || keys[87]) && onGround) {
+        jumpAudio.currentTime = 0; // Spela upp från början om ljudet redan
+        jumpAudio.play();
+        setPlayerJump();
+        velocityY = -jumpPower;
+        onGround = false;
+      }
     }
 
     // // Gravitation
@@ -228,7 +233,7 @@ $(document).ready(function () {
 
     player.css('top', newTop);
 
-    $(`#level${currentLevel} .spike`).each(function () {
+    $(`#level${currentLevel} .trap`).each(function () {
       const spike = $(this);
       const spikeTop = spike.position().top;
       const spikeLeft = spike.position().left;
@@ -331,7 +336,7 @@ $(document).ready(function () {
           left: fruitPosition.left,
           width: fruit.width(),
           height: fruit.height(),
-          backgroundImage: 'url("img/misc/collected.gif")', // Ersätt med sökvägen till din GIF
+          backgroundImage: 'url("img/fruits/collected.gif")', // Ersätt med sökvägen till din GIF
           backgroundSize: 'cover'
         });
 
@@ -354,55 +359,33 @@ $(document).ready(function () {
     requestAnimationFrame(gameLoop);
   }
 
-  let isHurtSoundPlaying = false;
-
   function restartLevel() {
+    // Lås kontrollerna
+    controlsLocked = true;
+
     // Lägg till en skak-animation
     player.addClass('shake');
 
     // Spela endast upp ljudet om det inte redan spelas
     if (!isHurtSoundPlaying) {
-      hurtAudio.currentTime = 0; // Starta från början
-      hurtAudio.play();
-      isHurtSoundPlaying = true; // Sätt flaggan till true
+        hurtAudio.currentTime = 0; // Starta från början
+        hurtAudio.play();
+        isHurtSoundPlaying = true;
     }
 
     // Ta bort skak-animationen efter 300 ms
     setTimeout(function() {
-      player.removeClass('shake');
+        player.removeClass('shake');
     }, 300);
 
-    // Återställ nivån efter 800 ms
+    // Återställ nivån efter 800 ms och lås upp kontrollerna
     setTimeout(() => {
-      levelRestarted = false;
-      isHurtSoundPlaying = false; // Återställ flaggan
-      initResetLevel(currentLevel);
+        levelRestarted = false;
+        isHurtSoundPlaying = false;
+        initResetLevel(currentLevel);
     }, 800);
-  }
+}
 
-  function restartLevel() {
-    // Lägg till en skak-animation
-    player.addClass('shake');
-
-    // Spela endast upp ljudet om det inte redan spelas
-    if (!isHurtSoundPlaying) {
-      hurtAudio.currentTime = 0; // Starta från början
-      hurtAudio.play();
-      isHurtSoundPlaying = true; // Sätt flaggan till true
-    }
-
-    // Ta bort skak-animationen efter 300 ms
-    setTimeout(function() {
-      player.removeClass('shake');
-    }, 300);
-
-    // Återställ nivån efter 800 ms
-    setTimeout(() => {
-      levelRestarted = false;
-      isHurtSoundPlaying = false; // Återställ flaggan
-      initResetLevel(currentLevel);
-    }, 800);
-  }
 
   $('#restartBtn').click(restartLevel);
 

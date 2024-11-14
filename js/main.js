@@ -183,10 +183,84 @@ $(document).ready(function () {
     setPlayerIdle(); // Sätt till idle när tangenterna släpps
   });
 
+  // STÖD FÖR HANDKONROLL
+  let gamepadIndex = null;
+
+  // Event när handkontrollen ansluts
+  window.addEventListener("gamepadconnected", (event) => {
+    console.log("Gamepad connected:", event.gamepad);
+    gamepadIndex = event.gamepad.index;
+  });
+
+  // Event när handkontrollen kopplas bort
+  window.addEventListener("gamepaddisconnected", () => {
+    console.log("Gamepad disconnected");
+    gamepadIndex = null;
+  });
+
+  function handleGamepadInput() {
+    const gamepad = navigator.getGamepads()[gamepadIndex];
+    if (!gamepad) return;
+
+    // Styrspak och hopp
+    const horizontalAxis = gamepad.axes[0]; // Vänster styrspak, horisontell axel
+    const jumpButton = gamepad.buttons[0].pressed; // A-knappen (eller motsvarande)
+
+    let isMoving = false;
+
+    // Rörelse åt vänster
+    if (horizontalAxis < -0.5) {
+      currentDirection = 'left';
+      setPlayerRun();
+      player.css('left', Math.max(parseInt(player.css('left')) - playerSpeed, 0));
+      isMoving = true;
+    }
+
+    // Rörelse åt höger
+    if (horizontalAxis > 0.5) {
+      currentDirection = 'right';
+      setPlayerRun();
+      player.css('left', Math.min(parseInt(player.css('left')) + playerSpeed, game.width() - player.width()));
+      isMoving = true;
+    }
+
+    // Hopp
+    if (jumpButton && onGround) {
+      setPlayerJump();
+      velocityY = -jumpPower;
+      onGround = false;
+      isMoving = true;
+    }
+
+    // Sätt spelaren i idle-läge om ingen input registreras
+    if (!isMoving) {
+      setPlayerIdle();
+    }
+
+    // Hantera knappar för att starta om och gå till nästa nivå
+    const restartButton = gamepad.buttons[9].pressed; // Start-knappen
+    const nextLevelButton = gamepad.buttons[8].pressed; // Select-knappen
+
+    // Starta om nivån när Start-knappen trycks
+    if (restartButton) {
+      restartLevel();
+    }
+
+    // Gå till nästa nivå endast om rutan #levelComplete är synlig
+    if (nextLevelButton && $('#levelComplete').is(':visible')) {
+      goToNextLevel();
+    }
+  }
+
+  // GAMELOOP BÖRJAR
   function gameLoop() {
     if (!player.length) return;
 
     if (!controlsLocked) {
+
+      // Hantera input från tangentbordet och handkontrollen
+      handleGamepadInput();
+
       // Rörelse åt vänster och höger
       if (keys[37] || keys[65]) { // Vänster piltangent eller A
         currentDirection = 'left';

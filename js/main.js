@@ -230,6 +230,8 @@ $(document).ready(function () {
       velocityY = -jumpPower;
       onGround = false;
       isMoving = true;
+      jumpAudio.currentTime = 0; // Spela upp från början om ljudet redan
+      jumpAudio.play();
     }
 
     // Sätt spelaren i idle-läge om ingen input registreras

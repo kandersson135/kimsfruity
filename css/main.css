@@ -157,6 +157,48 @@ h1 {
   background-image: url('../img/fruits/apple.gif');
 }
 
+.banana {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background-image: url('../img/fruits/banana.gif');
+}
+
+.kiwi {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background-image: url('../img/fruits/kiwi.gif');
+}
+
+.pineapple {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background-image: url('../img/fruits/pineapple.gif');
+}
+
+.cherry {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background-image: url('../img/fruits/cherry.gif');
+}
+
+.orange {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background-image: url('../img/fruits/orange.gif');
+}
+
+.melon {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  background-image: url('../img/fruits/melon.gif');
+}
+
 .spike {
   position: absolute;
   width: 16px;

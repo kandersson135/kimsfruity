@@ -85,6 +85,8 @@ $(document).ready(function () {
     $('#game').css('background', backgrounds[randomIndex]);
 
     hasLevelCompleted = false;
+    controlsLocked = false; // Lås upp kontrollerna
+
     $('.level').hide();
     $(`#level${level}`).show();
 
@@ -146,10 +148,13 @@ $(document).ready(function () {
     const playerHeight = player.height(); // Höjden på spelaren
     const gameHeight = game.height(); // Höjden på spelområdet
 
+    // Placera spelaren en bit ovanför marken
+    const spawnHeight = 80; // Höjd över marken där spelaren ska spawna
+
     // Placera spelaren precis ovanpå marken
     player.css({
       left: '50px',
-      top: `${gameHeight - groundHeight - playerHeight}px`
+      top: `${gameHeight - groundHeight - playerHeight - spawnHeight}px`
     });
 
     velocityY = 0;
@@ -436,11 +441,9 @@ $(document).ready(function () {
   }
 
   function restartLevel() {
-    // Lås kontrollerna
-    controlsLocked = true;
+    controlsLocked = true; // Lås kontrollerna
 
-    // Lägg till en skak-animation
-    player.addClass('shake');
+    player.addClass('shake'); // Lägg till en skak-animation
 
     // Spela endast upp ljudet om det inte redan spelas
     if (!isHurtSoundPlaying) {
@@ -468,6 +471,7 @@ $(document).ready(function () {
   function checkLevelCompletion() {
     if (!hasLevelCompleted && collectedFruits === $(`#level${currentLevel} .fruit`).length) {
       hasLevelCompleted = true; // Markera att nivån är avslutad
+      controlsLocked = true; // Lås kontrollerna
       levelupAudio.currentTime = 0;
       levelupAudio.play();
       // levelComplete.show();
@@ -503,14 +507,22 @@ $(document).ready(function () {
     if (currentLevel < totalLevels) {
       currentLevel++;
       initLevel(currentLevel);
+    } else if (currentLevel == totalLevels) {
+      levelComplete.hide();
+      $('#allLevelsComplete').show();
     } else {
-      alert('Grattis! Du har klarat alla nivåer!');
+      //alert('Grattis! Du har klarat alla nivåer!');
       location.reload();
     }
   }
 
   // Använd click-event för knappen
   $('#nextLevel').click(goToNextLevel);
+
+  // Använd click-event för knappen
+  $('#playAgain').click(function () {
+    location.reload();
+  });
 
   // Lyssna på Enter-tangenten
   $(document).keydown(function (e) {

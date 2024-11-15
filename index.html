@@ -9,6 +9,7 @@
 </head>
 <body>
   <!-- <h1>Kim's Fruity Adventure</h1> -->
+  <!-- <h1><img src="img/misc/game-title.png"></h1> -->
 
   <div id="game">
     <div id="level-transition"></div>
@@ -146,7 +147,7 @@
     <!-- Nivå 10 -->
     <div class="level" id="level10" style="display: none;">
       <div class="player"></div>
-      <div class="platform platform5" style="left: 96px; top: 180px;"></div>
+      <div class="platform platform5" style="left: 120px; top: 180px;"></div>
       <div class="platform platform6" style="left: 144px; top: 180px;"></div>
       <div class="platform platform6" style="left: 192px; top: 180px;"></div>
       <div class="platform platform6" style="left: 240px; top: 180px;"></div>
@@ -323,18 +324,27 @@
       <div class="fruit orange" style="left: 110px; top: 30px;"></div>
     </div>
 
-    <!-- Nivå Klar Skärm -->
+    <!-- Nivå klar skärm -->
     <div id="levelComplete" style="display: none;">
       <p>Alla frukter upphämtade!</p>
       <button id="nextLevel">Nästa nivå <img src="img/misc/next.png"></button>
     </div>
 
+    <!-- Alla nivåer klar skärm -->
+    <div id="allLevelsComplete" style="display: none;">
+      <p>Alla nivåer avklarade!</p>
+      <button id="playAgain">Spela igen <img src="img/misc/next.png"></button>
+    </div>
+
+    <!-- restart btn -->
     <a href="#" id="restartBtn">
       <img src="img/misc/restart.png">
     </a>
 
     <div id="ground"></div>
   </div><!-- end game-container -->
+
+  <!-- js -->
   <script src="js/jquery-3.6.0.min.js"></script>
   <script src="js/main.js"></script>
 </body>

@@ -25,6 +25,10 @@ h1 {
   text-shadow: 2px 2px 1px rgba(20, 20, 20, 0.8);
 }
 
+h1 img {
+  width: 500px;
+}
+
 /* #game {
     position: relative;
     width: 600px;
@@ -215,7 +219,8 @@ h1 {
   background-size: cover;
 }
 
-#levelComplete {
+#levelComplete,
+#allLevelsComplete {
   border-radius: 8px;
   position: absolute;
   top: 50%;
@@ -227,14 +232,16 @@ h1 {
   padding: 20px;
 }
 
-#levelComplete p {
+#levelComplete p,
+#allLevelsComplete p {
   font-size: 18px;
   text-shadow: 2px 2px 1px rgba(20, 20, 20, 0.8);
   margin: 0;
   margin-bottom: 20px;
 }
 
-#levelComplete button {
+#levelComplete button,
+#allLevelsComplete button {
   background: #fff;
   border: none;
   box-shadow: 2px 2px #000;
@@ -245,14 +252,16 @@ h1 {
   padding: 7px 9px 9px 9px;
 }
 
-#levelComplete button img {
+#levelComplete button img,
+#allLevelsComplete button img {
   width: 16px;
   height: 16px;
   position: relative;
   top: 2px;
 }
 
-#levelComplete button:active {
+#levelComplete button:active,
+#allLevelsComplete button:active {
   position: relative;
   top: 2px;
   left: 2px;

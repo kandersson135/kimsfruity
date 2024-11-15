@@ -151,11 +151,13 @@ $(document).ready(function () {
     // Placera spelaren en bit ovanför marken
     const spawnHeight = 80; // Höjd över marken där spelaren ska spawna
 
-    // Placera spelaren precis ovanpå marken
     player.css({
       left: '50px',
       top: `${gameHeight - groundHeight - playerHeight - spawnHeight}px`
     });
+
+    // Återställ spelarens riktning till höger
+    currentDirection = 'right';
 
     velocityY = 0;
     onGround = true; // Sätt spelaren som "på marken" vid start

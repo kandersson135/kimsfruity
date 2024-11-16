@@ -19,7 +19,7 @@ $(document).ready(function () {
   let collectedFruits = 0;
   let currentDirection = 'right'; // Håller reda på vilken riktning spelaren är vänd åt
 
-  let bgAudio = new Audio('audio/bg.ogg');
+  let bgAudio = new Audio('audio/bg2.ogg');
   let jumpAudio = new Audio('audio/jump.ogg');
   let biteAudio = new Audio('audio/bite.wav');
   let levelupAudio = new Audio('audio/levelup.mp3');
@@ -89,6 +89,8 @@ $(document).ready(function () {
 
     $('.level').hide();
     $(`#level${level}`).show();
+
+    $('#level-display span').text(currentLevel);
 
     // Sätt spelaren till rätt element
     player = $(`#level${level} .player`);
@@ -205,15 +207,86 @@ $(document).ready(function () {
     gamepadIndex = null;
   });
 
+  // function handleGamepadInput() {
+  //   const gamepad = navigator.getGamepads()[gamepadIndex];
+  //   if (!gamepad) return;
+  //
+  //   // Styrspak och hopp
+  //   const horizontalAxis = gamepad.axes[0]; // Vänster styrspak, horisontell axel
+  //   const jumpButton = gamepad.buttons[0].pressed; // A-knappen (eller motsvarande)
+  //
+  //   let isMoving = false;
+  //
+  //   // Rörelse åt vänster
+  //   if (horizontalAxis < -0.5) {
+  //     currentDirection = 'left';
+  //     setPlayerRun();
+  //     player.css('left', Math.max(parseInt(player.css('left')) - playerSpeed, 0));
+  //     isMoving = true;
+  //   }
+  //
+  //   // Rörelse åt höger
+  //   if (horizontalAxis > 0.5) {
+  //     currentDirection = 'right';
+  //     setPlayerRun();
+  //     player.css('left', Math.min(parseInt(player.css('left')) + playerSpeed, game.width() - player.width()));
+  //     isMoving = true;
+  //   }
+  //
+  //   // Hopp
+  //   if (jumpButton && onGround) {
+  //     setPlayerJump();
+  //     velocityY = -jumpPower;
+  //     onGround = false;
+  //     isMoving = true;
+  //     jumpAudio.currentTime = 0; // Spela upp från början om ljudet redan
+  //     jumpAudio.play();
+  //   }
+  //
+  //   // Sätt spelaren i idle-läge om ingen input registreras
+  //   if (!isMoving) {
+  //     setPlayerIdle();
+  //   }
+  //
+  //   // Hantera knappar för att starta om och gå till nästa nivå
+  //   const restartButton = gamepad.buttons[9].pressed; // Start-knappen
+  //   const nextLevelButton = gamepad.buttons[8].pressed; // Select-knappen
+  //
+  //   // Starta om nivån när Start-knappen trycks
+  //   if (restartButton) {
+  //     restartLevel();
+  //   }
+  //
+  //   // Gå till nästa nivå endast om rutan #levelComplete är synlig
+  //   if (nextLevelButton && $('#levelComplete').is(':visible')) {
+  //     goToNextLevel();
+  //   }
+  // }
+
   function handleGamepadInput() {
     const gamepad = navigator.getGamepads()[gamepadIndex];
     if (!gamepad) return;
 
-    // Styrspak och hopp
-    const horizontalAxis = gamepad.axes[0]; // Vänster styrspak, horisontell axel
-    const jumpButton = gamepad.buttons[0].pressed; // A-knappen (eller motsvarande)
+    const horizontalAxis = gamepad.axes[0];
+    const jumpButton = gamepad.buttons[0].pressed;
+    const restartButton = gamepad.buttons[9].pressed; // Start-knappen
+    const nextLevelButton = gamepad.buttons[8].pressed; // Select-knappen
+
+    // Hantera "Gå till nästa nivå" även om kontrollerna är låsta
+    if (nextLevelButton && $('#levelComplete').is(':visible')) {
+      goToNextLevel();
+      return;
+    }
+
+    // Om kontrollerna är låsta, avbryt här (förutom för Select-knappen ovan)
+    if (controlsLocked) return;
 
     let isMoving = false;
+
+    // Starta om nivån när Start-knappen trycks
+    if (restartButton) {
+      restartLevel();
+    }
 
     // Rörelse åt vänster
     if (horizontalAxis < -0.5) {
@@ -245,31 +318,17 @@ $(document).ready(function () {
     if (!isMoving) {
       setPlayerIdle();
     }
-
-    // Hantera knappar för att starta om och gå till nästa nivå
-    const restartButton = gamepad.buttons[9].pressed; // Start-knappen
-    const nextLevelButton = gamepad.buttons[8].pressed; // Select-knappen
-
-    // Starta om nivån när Start-knappen trycks
-    if (restartButton) {
-      restartLevel();
-    }
-
-    // Gå till nästa nivå endast om rutan #levelComplete är synlig
-    if (nextLevelButton && $('#levelComplete').is(':visible')) {
-      goToNextLevel();
-    }
   }
 
   // GAMELOOP BÖRJAR
   function gameLoop() {
     if (!player.length) return;
 
+    // Hantera input från handkontrollen oavsett om kontrollerna är låsta
+    handleGamepadInput();
+
+    // Hantera tangentbordskontroller och spelarrörelse endast om kontrollerna är upplåsta
     if (!controlsLocked) {
-
-      // Hantera input från tangentbordet och handkontrollen
-      handleGamepadInput();
-
       // Rörelse åt vänster och höger
       if (keys[37] || keys[65]) { // Vänster piltangent eller A
         currentDirection = 'left';

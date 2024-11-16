@@ -59,7 +59,7 @@ h1 img {
   left: 10px;
   color: #fff;
   font-size: 16px;
-  text-shadow: 1px 1px 1px rgba(20, 20, 20, 0.8);
+  text-shadow: 1px 1px 0px rgba(20, 20, 20, 0.8);
 
 }
 

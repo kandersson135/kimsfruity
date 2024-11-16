@@ -113,6 +113,7 @@ $(document).ready(function () {
   function initResetLevel(level) {
     hasLevelCompleted = false;
     controlsLocked = false; // Lås upp kontrollerna
+    player.show();
 
     // Återställ räknaren för insamlade frukter
     collectedFruits = 0;
@@ -504,7 +505,29 @@ $(document).ready(function () {
   function restartLevel() {
     controlsLocked = true; // Lås kontrollerna
 
-    player.addClass('shake'); // Lägg till en skak-animation
+    const playerPosition = player.position(); // Hämta fruktens position
+    player.hide(); // Dölj frukten
+
+    // Skapa ett nytt element för GIF
+    const gifDisElement = $('<div class="disappearing-gif"></div>');
+    gifDisElement.css({
+      position: 'absolute',
+      top: playerPosition.top,
+      left: playerPosition.left,
+      width: player.width(),
+      height: player.height(),
+      backgroundImage: 'url("img/char/disappearing.gif")', // Ersätt med sökvägen till din GIF
+      backgroundSize: 'cover'
+    });
+
+    // Lägg till GIF-elementet i spelområdet och visa det efter 1 sekund
+    $('#game').append(gifDisElement);
+    setTimeout(() => {
+      gifDisElement.show(); // Visa GIF:en efter 1 sekund
+      setTimeout(() => gifDisElement.remove(), 150); // Ta bort GIF:en efter 1 sekund
+    }, 150);
+
+    //player.addClass('shake'); // Lägg till en skak-animation
 
     // Spela endast upp ljudet om det inte redan spelas
     if (!isHurtSoundPlaying) {
@@ -513,10 +536,10 @@ $(document).ready(function () {
         isHurtSoundPlaying = true;
     }
 
-    // Ta bort skak-animationen efter 300 ms
-    setTimeout(function() {
-        player.removeClass('shake');
-    }, 300);
+    // // Ta bort skak-animationen efter 300 ms
+    // setTimeout(function() {
+    //     player.removeClass('shake');
+    // }, 300);
 
     // Återställ nivån efter 800 ms och lås upp kontrollerna
     setTimeout(() => {
@@ -533,6 +556,7 @@ $(document).ready(function () {
     if (!hasLevelCompleted && collectedFruits === $(`#level${currentLevel} .fruit`).length) {
       hasLevelCompleted = true; // Markera att nivån är avslutad
       controlsLocked = true; // Lås kontrollerna
+      setPlayerIdle();
       levelupAudio.currentTime = 0;
       levelupAudio.play();
       // levelComplete.show();

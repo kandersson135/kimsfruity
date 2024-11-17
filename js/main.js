@@ -272,8 +272,10 @@ $(document).ready(function () {
 
     const horizontalAxis = gamepad.axes[0];
     const jumpButton = gamepad.buttons[0].pressed; // A-knappen
-    const restartButton = gamepad.buttons[9].pressed; // Start-knappen
-    const nextLevelButton = gamepad.buttons[8].pressed; // Select-knappen
+    const startButton = gamepad.buttons[9].pressed; // Start-knappen
+    const restartButton = gamepad.buttons[8].pressed; // Select-knappen
+    const nextLevelButton = gamepad.buttons[2].pressed; // X-knappen
+    const specialMoveButton = gamepad.buttons[3].pressed; // Y-knappen
 
     // Styrkors (D-pad) knappar för sidledsrörelse
     const dpadLeft = gamepad.buttons[14].pressed;

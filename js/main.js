@@ -181,7 +181,7 @@ $(document).ready(function () {
   }
 
   function setPlayerJump() {
-    player.css('background-image', currentDirection === 'right' ? 'url(img/char/jump-r.gif)' : 'url(img/char/jump-l.gif)');
+    player.css('background-image', currentDirection === 'right' ? 'url(img/char/jump-r.png)' : 'url(img/char/jump-l.png)');
   }
 
   $(document).keydown(function (e) {

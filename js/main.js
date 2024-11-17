@@ -66,7 +66,6 @@ $(document).ready(function () {
     });
   }
 
-
   // function initLevel(level) {
   //     $('.level').hide();
   //     $(`#level${level}`).show();
@@ -269,9 +268,13 @@ $(document).ready(function () {
     if (!gamepad) return;
 
     const horizontalAxis = gamepad.axes[0];
-    const jumpButton = gamepad.buttons[0].pressed;
+    const jumpButton = gamepad.buttons[0].pressed; // A-knappen
     const restartButton = gamepad.buttons[9].pressed; // Start-knappen
     const nextLevelButton = gamepad.buttons[8].pressed; // Select-knappen
+
+    // Styrkors (D-pad) knappar för sidledsrörelse
+    const dpadLeft = gamepad.buttons[14].pressed;
+    const dpadRight = gamepad.buttons[15].pressed;
 
     // Hantera "Gå till nästa nivå" även om kontrollerna är låsta
     if (nextLevelButton && $('#levelComplete').is(':visible')) {
@@ -290,7 +293,7 @@ $(document).ready(function () {
     }
 
     // Rörelse åt vänster
-    if (horizontalAxis < -0.5) {
+    if (horizontalAxis < -0.5 || dpadLeft) {
       currentDirection = 'left';
       setPlayerRun();
       player.css('left', Math.max(parseInt(player.css('left')) - playerSpeed, 0));
@@ -298,7 +301,7 @@ $(document).ready(function () {
     }
 
     // Rörelse åt höger
-    if (horizontalAxis > 0.5) {
+    if (horizontalAxis > 0.5 || dpadRight) {
       currentDirection = 'right';
       setPlayerRun();
       player.css('left', Math.min(parseInt(player.css('left')) + playerSpeed, game.width() - player.width()));
@@ -616,6 +619,19 @@ $(document).ready(function () {
     }
   });
 
-  initLevel(currentLevel);
-  gameLoop();
+  // Göm spelet från början
+  $('#game').hide();
+
+  // När "Starta spel"-knappen klickas
+  $('#start-button').click(function() {
+    // Göm startskärmen och visa spelet
+    $('#start-screen').fadeOut(500, function() {
+      $('#game').fadeIn(500); // Visa spelet
+      initLevel(currentLevel);
+      gameLoop(); // Starta game loop
+    });
+  });
+
+  // initLevel(currentLevel);
+  // gameLoop();
 });

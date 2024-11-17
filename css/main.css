@@ -53,6 +53,47 @@ h1 img {
   overflow: hidden;
 }
 
+#start-screen {
+  position: relative;
+  width: 600px;
+  height: 300px;
+  background-image: url("../img/bg/pink.png");
+  background-repeat: repeat;
+  overflow: hidden;
+}
+
+#game-title {
+  text-align: center;
+  margin-top: -10px;
+}
+
+#game-title img {
+  width: 256px;
+}
+
+#start-button {
+  background: rgba(255, 255, 255, 0.6);
+  border: none;
+  box-shadow: 2px 2px #000;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Concert One', cursive;
+  font-size: 18px;
+  padding: 7px 9px 9px 9px;
+  margin: 0 auto;
+  position: relative;
+  bottom: 10px;
+  width: 100px;
+  text-align: center;
+}
+
+#start-button:active {
+  position: relative;
+  bottom: 8px;
+  left: 2px;
+  box-shadow: none;
+}
+
 #level-display {
   position: absolute;
   top: 10px;
@@ -60,7 +101,6 @@ h1 img {
   color: #fff;
   font-size: 16px;
   text-shadow: 1px 1px 0px rgba(20, 20, 20, 0.8);
-
 }
 
 #restartBtn {
@@ -276,6 +316,23 @@ h1 img {
   top: 2px;
   left: 2px;
   box-shadow: none;
+}
+
+/* float animation */
+.float {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-5px); /* Flytta uppåt */
+    }
+    100% {
+        transform: translateY(0); /* Tillbaka till ursprunglig position */
+    }
 }
 
 /* shake animation */

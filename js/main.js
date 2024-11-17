@@ -19,11 +19,14 @@ $(document).ready(function () {
   let collectedFruits = 0;
   let currentDirection = 'right'; // Håller reda på vilken riktning spelaren är vänd åt
 
+  let startScreenAudio = new Audio('audio/bg3.ogg');
   let bgAudio = new Audio('audio/bg2.ogg');
   let jumpAudio = new Audio('audio/jump.ogg');
   let biteAudio = new Audio('audio/bite.wav');
   let levelupAudio = new Audio('audio/levelup.mp3');
   let hurtAudio = new Audio('audio/fail.wav');
+  startScreenAudio.volume = 0.1;
+  startScreenAudio.loop = true;
   bgAudio.volume = 0.1;
   bgAudio.loop = true;
   biteAudio.volume = 0.3;
@@ -622,11 +625,15 @@ $(document).ready(function () {
   // Göm spelet från början
   $('#game').hide();
 
+  // Spela bakgrundsmusik
+  startScreenAudio.play();
+
   // När "Starta spel"-knappen klickas
   $('#start-button').click(function() {
     // Göm startskärmen och visa spelet
     $('#start-screen').fadeOut(500, function() {
       $('#game').fadeIn(500); // Visa spelet
+      startScreenAudio.pause();
       initLevel(currentLevel);
       gameLoop(); // Starta game loop
     });

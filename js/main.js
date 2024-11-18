@@ -539,9 +539,9 @@ $(document).ready(function () {
 
     // Spela endast upp ljudet om det inte redan spelas
     if (!isHurtSoundPlaying) {
-        hurtAudio.currentTime = 0; // Starta från början
-        hurtAudio.play();
-        isHurtSoundPlaying = true;
+      hurtAudio.currentTime = 0; // Starta från början
+      hurtAudio.play();
+      isHurtSoundPlaying = true;
     }
 
     // // Ta bort skak-animationen efter 300 ms
@@ -551,12 +551,11 @@ $(document).ready(function () {
 
     // Återställ nivån efter 800 ms och lås upp kontrollerna
     setTimeout(() => {
-        levelRestarted = false;
-        isHurtSoundPlaying = false;
-        initResetLevel(currentLevel);
+      levelRestarted = false;
+      isHurtSoundPlaying = false;
+      initResetLevel(currentLevel);
     }, 800);
-}
-
+  }
 
   $('#restartBtn').click(restartLevel);
 
@@ -594,6 +593,8 @@ $(document).ready(function () {
   //     location.reload();
   //   }
   // });
+
+  $('#nextLevelBtn').click(goToNextLevel);
 
   // Funktion för att gå till nästa nivå eller avsluta spelet
   function goToNextLevel() {

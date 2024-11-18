@@ -284,6 +284,14 @@ h1 img {
   background-size: cover;
 }
 
+.saw {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  background-image: url('../img/traps/saw.gif');
+  background-size: cover;
+}
+
 #levelComplete,
 #allLevelsComplete {
   border-radius: 8px;
@@ -335,19 +343,19 @@ h1 img {
 
 /* float animation */
 .float {
-    animation: float 3s ease-in-out infinite;
+  animation: float 3s ease-in-out infinite;
 }
 
 @keyframes float {
-    0% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-5px); /* Flytta uppåt */
-    }
-    100% {
-        transform: translateY(0); /* Tillbaka till ursprunglig position */
-    }
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px); /* Flytta uppåt */
+  }
+  100% {
+    transform: translateY(0); /* Tillbaka till ursprunglig position */
+  }
 }
 
 /* shake animation */

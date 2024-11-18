@@ -1,6 +1,6 @@
 $(document).ready(function () {
   let currentLevel = 1;
-  const totalLevels = 20;
+  const totalLevels = 25;
   let player;
   const game = $('#game');
   const levelComplete = $('#levelComplete');
@@ -68,6 +68,36 @@ $(document).ready(function () {
       }, 800);
     });
   }
+
+  const $platforms = $('.moving');
+  const platformSpeed = 1; // Hastigheten för plattformens rörelse
+  const moveDistance = 50; // Hur många pixlar plattformen ska röra sig
+
+  // För varje plattform, starta en separat rörelse
+  $platforms.each(function () {
+      const $platform = $(this);
+      let startLeft = parseInt($platform.css('left')); // Initial position
+      let currentLeft = startLeft;
+
+      // Kontrollera klass för att bestämma initial riktning
+      let direction = $platform.hasClass('moving-left') ? -1 : 1;
+
+      function movePlatform() {
+          // Uppdatera plattformens position
+          currentLeft += platformSpeed * direction;
+          $platform.css('left', currentLeft + 'px');
+
+          // Kontrollera om plattformen når gränsen
+          if (currentLeft >= startLeft + moveDistance || currentLeft <= startLeft - moveDistance) {
+              direction *= -1; // Byt riktning
+          }
+
+          requestAnimationFrame(movePlatform);
+      }
+
+      // Starta plattformsrörelsen för denna plattform
+      movePlatform();
+  });
 
   // function initLevel(level) {
   //     $('.level').hide();
@@ -642,6 +672,12 @@ $(document).ready(function () {
     });
   });
 
+  // initLevel(currentLevel);
+  // gameLoop();
+
+  // för utveckling
+  // $('#game').show();
+  // $('#start-screen').hide();
   // initLevel(currentLevel);
   // gameLoop();
 });

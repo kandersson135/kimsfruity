@@ -29,22 +29,6 @@ h1 img {
   width: 500px;
 }
 
-/* #game {
-    position: relative;
-    width: 600px;
-    height: 300px;
-    background-color: #f0f0f0;
-    overflow: hidden;
-}
-
-#ground {
-  background: brown;
-  bottom: 0;
-  height: 20px;
-  position: absolute;
-  width: 100%;
-} */
-
 #game {
   position: relative;
   width: 600px;

@@ -75,28 +75,28 @@ $(document).ready(function () {
 
   // För varje plattform, starta en separat rörelse
   $platforms.each(function () {
-      const $platform = $(this);
-      let startLeft = parseInt($platform.css('left')); // Initial position
-      let currentLeft = startLeft;
+    const $platform = $(this);
+    let startLeft = parseInt($platform.css('left')); // Initial position
+    let currentLeft = startLeft;
 
-      // Kontrollera klass för att bestämma initial riktning
-      let direction = $platform.hasClass('moving-left') ? -1 : 1;
+    // Kontrollera klass för att bestämma initial riktning
+    let direction = $platform.hasClass('moving-left') ? -1 : 1;
 
-      function movePlatform() {
-          // Uppdatera plattformens position
-          currentLeft += platformSpeed * direction;
-          $platform.css('left', currentLeft + 'px');
+    function movePlatform() {
+      // Uppdatera plattformens position
+      currentLeft += platformSpeed * direction;
+      $platform.css('left', currentLeft + 'px');
 
-          // Kontrollera om plattformen når gränsen
-          if (currentLeft >= startLeft + moveDistance || currentLeft <= startLeft - moveDistance) {
-              direction *= -1; // Byt riktning
-          }
-
-          requestAnimationFrame(movePlatform);
+      // Kontrollera om plattformen når gränsen
+      if (currentLeft >= startLeft + moveDistance || currentLeft <= startLeft - moveDistance) {
+        direction *= -1; // Byt riktning
       }
 
-      // Starta plattformsrörelsen för denna plattform
-      movePlatform();
+      requestAnimationFrame(movePlatform);
+    }
+
+    // Starta plattformsrörelsen för denna plattform
+    movePlatform();
   });
 
   // function initLevel(level) {

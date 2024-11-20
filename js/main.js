@@ -641,10 +641,10 @@ $(document).ready(function () {
     }
   }
 
-  // Använd click-event för knappen
+  // nästa nivå click
   $('#nextLevel').click(goToNextLevel);
 
-  // Använd click-event för knappen
+  // spela igen click
   $('#playAgain').click(function () {
     location.reload();
   });

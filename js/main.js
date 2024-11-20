@@ -359,6 +359,7 @@ $(document).ready(function () {
     }
   }
 
+
   // GAMELOOP BÖRJAR
   function gameLoop() {
     if (!player.length) return;
@@ -661,6 +662,21 @@ $(document).ready(function () {
   // Spela bakgrundsmusik
   startScreenAudio.play();
 
+  // levels button click
+  $('#levels-button').click(function() {
+    // Göm startskärmen och visa spelet
+    $('#start-screen').fadeOut(500, function() {
+      $('#levels-screen').fadeIn(500);
+    });
+  });
+
+  // back button click
+  $('#back-button').click(function() {
+    $('#levels-screen').fadeOut(500, function() {
+      $('#start-screen').fadeIn(500);
+    });
+  });
+
   // När "Starta spel"-knappen klickas
   $('#start-button').click(function() {
     // Göm startskärmen och visa spelet
@@ -669,6 +685,21 @@ $(document).ready(function () {
       startScreenAudio.pause();
       initLevel(currentLevel);
       gameLoop(); // Starta game loop
+    });
+  });
+
+  // level button click
+  $('.level-block').click(function () {
+    // Läs av texten från knappen för att få nivån
+    const selectedLevel = parseInt($(this).text(), 10); // Läser in texten och konverterar till ett nummer
+
+    // Göm startskärmen och visa spelet
+    $('#levels-screen').fadeOut(500, function () {
+      $('#game').fadeIn(500); // Visa spelet
+      startScreenAudio.pause(); // Pausa eventuell bakgrundsmusik på startskärmen
+      currentLevel = selectedLevel;
+      initLevel(currentLevel); // Initiera den valda nivån
+      gameLoop(); // Starta spel-loopen
     });
   });
 

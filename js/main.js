@@ -302,6 +302,7 @@ $(document).ready(function () {
 
     const horizontalAxis = gamepad.axes[0];
     const jumpButton = gamepad.buttons[0].pressed; // A-knappen
+    const bButton = gamepad.buttons[1].pressed; // B-knappen
     const startButton = gamepad.buttons[9].pressed; // Start-knappen
     const restartButton = gamepad.buttons[8].pressed; // Select-knappen
     const nextLevelButton = gamepad.buttons[2].pressed; // X-knappen
@@ -314,6 +315,12 @@ $(document).ready(function () {
     // Hantera "Gå till nästa nivå" även om kontrollerna är låsta
     if (nextLevelButton && $('#levelComplete').is(':visible')) {
       goToNextLevel();
+      return;
+    }
+
+    // Hantera "ladda om sidan" även om kontrollerna är låsta
+    if (bButton && $('#allLevelsComplete').is(':visible')) {
+      location.reload();
       return;
     }
 
@@ -655,6 +662,40 @@ $(document).ready(function () {
       goToNextLevel();
     }
   });
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////
+  // game pad start button part
+  let gameStarted = false; // Track if the game has started
+
+  function checkGamepadStart() {
+    const gamepads = navigator.getGamepads(); // Get all connected gamepads
+    const gamepad = gamepads[0]; // Use the first connected gamepad
+
+    if (gamepad && gamepad.buttons[9].pressed) { // Button index 9 is usually the Start button
+      if (!gameStarted) { // Prevent multiple presses
+        startGame();
+      }
+    }
+
+    if (!gameStarted) {
+      requestAnimationFrame(checkGamepadStart); // Keep checking until the game starts
+    }
+  }
+
+  function startGame() {
+    gameStarted = true;
+    // Göm startskärmen och visa spelet
+    $('#start-screen').fadeOut(500, function() {
+      $('#game').fadeIn(500); // Visa spelet
+      startScreenAudio.pause();
+      initLevel(currentLevel);
+      gameLoop(); // Starta game loop
+    });
+  }
+
+  // Call this on page load to start listening for the Start button on gamepad
+  checkGamepadStart();
+  ///////////////////////////////////////////////////////////////////////////////////////////////////
 
   // Göm spelet från början
   $('#game').hide();

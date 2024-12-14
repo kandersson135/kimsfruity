@@ -2,9 +2,20 @@
 <html lang="sv">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="theme-color" content="#211f30">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+
   <title>Kim's Fruity Adventure</title>
+  <link rel="apple-touch-icon" href="img/webapp-icon.png">
   <link rel="shortcut icon" href="img/favicon.ico">
+
+  <!-- json -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- css -->
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
@@ -524,6 +535,11 @@
 
     <!-- ground -->
     <div id="ground"></div>
+
+    <!-- touch controls -->
+    <div id="leftButton"><img src="img/misc/left-arrow.png"></div>
+    <div id="rightButton"><img src="img/misc/right-arrow.png"></div>
+    <div id="jumpButton"><img src="img/misc/up-arrow.png"></div>
 
     <!-- Nivå klar skärm -->
     <div id="levelComplete" style="display: none;">

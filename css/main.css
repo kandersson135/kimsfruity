@@ -2,17 +2,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Chewy&display=swap');
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #211f30;
-    background-image: url(../img/bg/bgBorder.png);
-    background-position: center center;
-    background-repeat: no-repeat;
-    font-family: 'Concert One', cursive;
-    overflow: hidden;
-    margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #211f30;
+  background-image: url(../img/bg/bgBorder.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  font-family: 'Concert One', cursive;
+  overflow: hidden;
+  margin: 0;
 }
 
 h1 {
@@ -35,6 +35,7 @@ h1 img {
   height: 300px;
   background-color: #f0f0f0;
   overflow: hidden;
+  user-select: none;
 }
 
 #start-screen,
@@ -45,6 +46,7 @@ h1 img {
   background-image: url("../img/bg/pink.png");
   background-repeat: repeat;
   overflow: hidden;
+  user-select: none;
 }
 
 #levels-screen {
@@ -127,6 +129,7 @@ h1 img {
   bottom: 10px;
   width: 100px;
   text-align: center;
+  user-select: none;
 }
 
 #start-button:active {
@@ -142,6 +145,7 @@ h1 img {
   color: #fff;
   font-size: 16px;
   text-shadow: 1px 1px 0px rgba(20, 20, 20, 0.8);
+  user-select: none;
 }
 
 #restartBtn,
@@ -370,6 +374,49 @@ h1 img {
   position: relative;
   top: 2px;
   box-shadow: none;
+}
+
+/* Default to hide on non-touch devices */
+#leftButton, #rightButton, #jumpButton {
+  display: none;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  /* Touch controls */
+  #leftButton, #rightButton, #jumpButton {
+    display: block; /* Ensure they are displayed on touch devices */
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid #000;
+    box-shadow: 0px 2px #000;
+    border-radius: 5px;
+    padding: 5px 10px;
+    z-index: 99;
+    text-align: center;
+    user-select: none;
+  }
+}
+
+#leftButton img, #rightButton img, #jumpButton img {
+  width: 32px;
+  opacity: 0.9;
+}
+
+#leftButton {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+}
+
+#rightButton {
+  position: absolute;
+  bottom: 5px;
+  left: 80px;
+}
+
+#jumpButton {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
 }
 
 /* float animation */

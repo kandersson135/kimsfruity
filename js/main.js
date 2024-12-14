@@ -216,6 +216,7 @@ $(document).ready(function () {
     player.css('background-image', currentDirection === 'right' ? 'url(img/char/jump-r.png)' : 'url(img/char/jump-l.png)');
   }
 
+  // Detect key press
   $(document).keydown(function (e) {
     keys[e.keyCode] = true;
   });
@@ -366,13 +367,73 @@ $(document).ready(function () {
     }
   }
 
+  // Touch controls
+  //////////////////////////////////////////////////////////////////////////////////////////////
+  // Variabler för att spåra rörelse
+  let isMovingLeft = false;
+  let isMovingRight = false;
+
+  // Touchstart-hanterare
+  $('#jumpButton').on('touchstart', function () {
+    // Hopp (bara om på marken)
+    if (onGround) {
+      jumpAudio.currentTime = 0; // Spela upp från början om ljudet redan spelas
+      jumpAudio.play();
+      setPlayerJump();
+      gravity = 0.1;
+      jumpPower = 5;
+      velocityY = -jumpPower;
+      onGround = false;
+    }
+  });
+
+  $('#leftButton').on('touchstart', function () {
+    isMovingLeft = true; // Aktivera vänster rörelse
+    currentDirection = 'left';
+    setPlayerRun();
+  });
+
+  $('#rightButton').on('touchstart', function () {
+    isMovingRight = true; // Aktivera höger rörelse
+    currentDirection = 'right';
+    setPlayerRun();
+  });
+
+  // Touchend-hanterare
+  $('#jumpButton, #leftButton, #rightButton').on('touchend', function () {
+    // Inaktivera rörelse när knappen släpps
+    if ($(this).is('#leftButton')) {
+      isMovingLeft = false;
+    }
+    if ($(this).is('#rightButton')) {
+      isMovingRight = false;
+    }
+
+    // Om inga rörelseknappar är aktiva, sätt till idle
+    if (!isMovingLeft && !isMovingRight) {
+      setPlayerIdle();
+    }
+  });
+
+  // Uppdatera spelarens position i gameloopen
+  function updatePlayerPosition() {
+    if (isMovingLeft) {
+      player.css('left', Math.max(parseInt(player.css('left')) - 1.3, 0));
+    }
+    if (isMovingRight) {
+      player.css('left', Math.min(parseInt(player.css('left')) + 1.5, game.width() - player.width()));
+    }
+  }
 
   // GAMELOOP BÖRJAR
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
   function gameLoop() {
     if (!player.length) return;
 
     // Hantera input från handkontrollen oavsett om kontrollerna är låsta
     handleGamepadInput();
+
+    updatePlayerPosition();
 
     // Hantera tangentbordskontroller och spelarrörelse endast om kontrollerna är upplåsta
     if (!controlsLocked) {

@@ -1,0 +1,17 @@
+{
+  "name": "Kim's Fruity Adventure",
+  "short_name": "Kim's Fruity Adventure",
+  "description": "Ett klurigt plattformsspel med flera nivåer.",
+  "icons": [
+    {
+      "src": "img/webapp-icon.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "https://kandersson135.github.io/kimsfruity/",
+  "display": "standalone",
+  "background_color": "#211f30",
+  "theme_color": "#211f30",
+  "orientation": "landscape"
+}

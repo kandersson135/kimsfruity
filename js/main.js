@@ -369,6 +369,14 @@ $(document).ready(function () {
 
   // Touch controls
   //////////////////////////////////////////////////////////////////////////////////////////////
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+    // The device supports touch
+    $('#leftButton, #rightButton, #jumpButton').hide();
+  } else {
+    // The device doesn't support touch
+    $('#leftButton, #rightButton, #jumpButton').show();
+  }
+
   // Variabler för att spåra rörelse
   let isMovingLeft = false;
   let isMovingRight = false;

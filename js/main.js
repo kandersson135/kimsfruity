@@ -445,7 +445,7 @@ $(document).ready(function () {
       player.css('left', Math.max(parseInt(player.css('left')) - 1.3, 0));
     }
     if (isMovingRight) {
-      player.css('left', Math.min(parseInt(player.css('left')) + 1.5, game.width() - player.width()));
+      player.css('left', Math.min(parseInt(player.css('left')) + 1.6, game.width() - player.width()));
     }
   }
 

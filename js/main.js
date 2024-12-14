@@ -375,6 +375,18 @@ $(document).ready(function () {
     e.preventDefault();  // Disable right-click for all elements in the body
   });
 
+  if (/iPad/i.test(navigator.userAgent)) {
+    // Scale up the div if the device is an iPad
+    //$('body').css('transform', 'scale(1.7)');
+
+    // Scale up the body content and adjust the background size
+    $('body').css({
+        'transform': 'scale(1.7)',
+        'transform-origin': 'center center', // Optional, scales from the center
+        'background-size': '97%' // Adjust the background size to match the scale
+    });
+  }
+
   if (isMobile) {
     $('#leftButton, #rightButton, #jumpButton').show();
   } else {
@@ -392,8 +404,8 @@ $(document).ready(function () {
       jumpAudio.currentTime = 0; // Spela upp från början om ljudet redan spelas
       jumpAudio.play();
       setPlayerJump();
-      gravity = 0.1;
-      jumpPower = 5;
+      gravity = 0.2;
+      jumpPower = 6;
       velocityY = -jumpPower;
       onGround = false;
     }
@@ -430,7 +442,7 @@ $(document).ready(function () {
   // Uppdatera spelarens position i gameloopen
   function updatePlayerPosition() {
     if (isMovingLeft) {
-      player.css('left', Math.max(parseInt(player.css('left')) - 1.3, 0));
+      player.css('left', Math.max(parseInt(player.css('left')) - 1.5, 0));
     }
     if (isMovingRight) {
       player.css('left', Math.min(parseInt(player.css('left')) + 1.5, game.width() - player.width()));

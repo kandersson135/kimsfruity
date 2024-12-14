@@ -369,12 +369,12 @@ $(document).ready(function () {
 
   // Touch controls
   //////////////////////////////////////////////////////////////////////////////////////////////
-  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-    // The device supports touch
-    $('#leftButton, #rightButton, #jumpButton').hide();
-  } else {
-    // The device doesn't support touch
+  var isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  if (isMobile) {
     $('#leftButton, #rightButton, #jumpButton').show();
+  } else {
+    $('#leftButton, #rightButton, #jumpButton').hide();
   }
 
   // Variabler för att spåra rörelse

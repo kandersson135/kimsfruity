@@ -371,6 +371,10 @@ $(document).ready(function () {
   //////////////////////////////////////////////////////////////////////////////////////////////
   var isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
+  $('body').on('contextmenu', function(e) {
+    e.preventDefault();  // Disable right-click for all elements in the body
+  });
+
   if (isMobile) {
     $('#leftButton, #rightButton, #jumpButton').show();
   } else {

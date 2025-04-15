@@ -388,6 +388,26 @@ $(document).ready(function () {
   }
 
   if (isMobile) {
+    let fadeTimeout;
+    const fadeDelay = 4000; // Millisekunder innan kontrollerna försvinner
+
+    function resetFadeTimer() {
+      clearTimeout(fadeTimeout);
+      $('#touch-controls').removeClass('hidden'); // Visa kontroller
+
+      fadeTimeout = setTimeout(() => {
+        $('#touch-controls').addClass('hidden'); // Göm kontroller efter inaktivitet
+      }, fadeDelay);
+    }
+
+    // Starta fade-timer när dokumentet laddats
+    resetFadeTimer();
+
+    // Återställ fade-timer vid touch
+    $(document).on('touchstart', function () {
+      resetFadeTimer();
+    });
+    
     $('#leftButton, #rightButton, #jumpButton').show();
   } else {
     $('#leftButton, #rightButton, #jumpButton').hide();

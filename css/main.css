@@ -410,6 +410,22 @@ h1 img {
   right: 5px;
 }
 
+#touch-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  display: flex;
+  justify-content: space-around;
+  transition: opacity 0.4s ease;
+  z-index: 10;
+}
+
+#touch-controls.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* float animation */
 .float {
   animation: float 3s ease-in-out infinite;

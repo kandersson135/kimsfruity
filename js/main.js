@@ -69,6 +69,7 @@ $(document).ready(function () {
     });
   }
 
+  // Moving platforms
   const $platforms = $('.moving');
   const platformSpeed = 1; // Hastigheten för plattformens rörelse
   const moveDistance = 50; // Hur många pixlar plattformen ska röra sig
@@ -407,7 +408,7 @@ $(document).ready(function () {
     $(document).on('touchstart', function () {
       resetFadeTimer();
     });
-    
+
     $('#leftButton, #rightButton, #jumpButton').show();
   } else {
     $('#leftButton, #rightButton, #jumpButton').hide();

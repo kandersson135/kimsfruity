@@ -475,3 +475,76 @@ h1 img {
 .five-sixth {width:82.67%;}
 .one-half, .one-third, .two-third, .three-fourth, .one-fourth, .one-fifth, .two-fifth, .three-fifth, .four-fifth, .one-sixth, .five-sixth {position:relative; margin-right:4%; float:left;}
 .last {margin-right:0 !important; clear:right;}
+
+/* --- Loading screen overlay --- */
+#loadingScreen {
+  position: fixed;
+  inset: 0;
+  background-color: #211f30;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Concert One', cursive;
+  color: #3a2d1f;
+  z-index: 9999;
+}
+
+/* Center box */
+.loading-box {
+  background: #fff7e4;
+  border: 3px solid #6c5671;
+  border-radius: 14px;
+  box-shadow: inset 0 -4px 0 #dcc7b5;
+  padding: 30px 40px;
+  text-align: center;
+}
+
+/* Cute alpaca icon or sprite */
+.running-pixel img {
+  height: 48px;
+  width: 48px;
+}
+
+/* Loading text */
+.loading-text {
+  font-size: 18px;
+  margin: 10px 0;
+  letter-spacing: 1px;
+}
+
+/* Progress bar frame */
+.loading-bar {
+  width: 200px;
+  height: 18px;
+  background: #d1c49b;
+  border: 2px solid #6c5671;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 6px;
+}
+
+/* The filling part */
+.loading-fill {
+  height: 100%;
+  width: 0%;
+  background: repeating-linear-gradient(
+    45deg,
+    #b0eb93 0,
+    #b0eb93 10px,
+    #a0db83 10px,
+    #a0db83 20px
+  );
+  animation: loading-stripes 1s linear infinite;
+}
+
+/* Simple alpaca bounce */
+@keyframes bounce-loading {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* Diagonal stripe movement */
+@keyframes loading-stripes {
+  from { background-position: 0 0; }
+  to { background-position: 40px 0; }
+}

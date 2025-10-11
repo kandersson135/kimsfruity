@@ -803,11 +803,11 @@ $(document).ready(function () {
   checkGamepadStart();
   ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // Göm spelet från början
-  $('#game').hide();
-
-  // Spela bakgrundsmusik
-  startScreenAudio.play();
+  // // Göm spelet från början
+  // $('#game').hide();
+  //
+  // // Spela bakgrundsmusik
+  // startScreenAudio.play();
 
   // levels button click
   $('#levels-button').click(function() {
@@ -849,6 +849,130 @@ $(document).ready(function () {
       gameLoop(); // Starta spel-loopen
     });
   });
+
+  // preload assets
+  const assets = [
+    // audio
+    'audio/bg2.ogg',
+    'audio/bg3.ogg',
+    'audio/jump.ogg',
+    'audio/bite.wav',
+    'audio/levelup.mp3',
+    'audio/fail.wav',
+    // traps
+    'img/traps/fire.gif',
+    'img/traps/saw.gif',
+    'img/traps/spikes.gif',
+    // platforms
+    'img/platforms/platform1.png',
+    'img/platforms/platform2.png',
+    'img/platforms/platform3.png',
+    'img/platforms/platform4.png',
+    'img/platforms/platform5.png',
+    // misc
+    'img/misc/back.png',
+    'img/misc/game-title.png',
+    'img/misc/ground.png',
+    'img/misc/left-arrow.png',
+    'img/misc/right-arrow.png',
+    'img/misc/up-arrow.png',
+    'img/misc/levels.png',
+    'img/misc/next.png',
+    'img/misc/restart.png',
+    // fruits
+    'img/fruits/apple.gif',
+    'img/fruits/banana.gif',
+    'img/fruits/cherry.gif',
+    'img/fruits/collected.gif',
+    'img/fruits/kiwi.gif',
+    'img/fruits/melon.gif',
+    'img/fruits/orange.gif',
+    'img/fruits/pineapple.gif',
+    // character
+    'img/char/disappearing.gif',
+    'img/char/idle-l.gif',
+    'img/char/idle-r.gif',
+    'img/char/jump-l.gif',
+    'img/char/jump-r.gif',
+    'img/char/jump-l.png',
+    'img/char/jump-r.png',
+    'img/char/run-l.gif',
+    'img/char/run-r.gif',
+    // bg
+    'img/bg/bgBorder.png',
+    'img/bg/blue.png',
+    'img/bg/brown.png',
+    'img/bg/gray.png',
+    'img/bg/green.png',
+    'img/bg/pink.png',
+    'img/bg/purlpe.png',
+    'img/bg/yellow.png',
+  ];
+
+  // preload assets
+  function preloadAssets(assets, onComplete, onProgress) {
+    let loaded = 0;
+    const total = assets.length;
+
+    if (total === 0) {
+      onComplete();
+      return;
+    }
+
+    assets.forEach((asset) => {
+      const ext = asset.split('.').pop().toLowerCase();
+      let element;
+
+      if (['png', 'jpg', 'jpeg', 'gif', 'webp'].includes(ext)) {
+        element = new Image();
+        element.onload = element.onerror = handleLoad;
+        element.src = asset;
+      } else if (['mp3', 'ogg', 'wav'].includes(ext)) {
+        element = new Audio();
+        element.oncanplaythrough = element.onerror = handleLoad;
+        element.src = asset;
+        element.load();
+      } else {
+        // Unknown asset type, skip but count it as loaded
+        handleLoad();
+      }
+    });
+
+    function handleLoad() {
+      loaded++;
+      if (onProgress) onProgress(loaded, total);
+      if (loaded >= total && onComplete) onComplete();
+    }
+  }
+
+  preloadAssets(assets, () => {
+    //console.log("✅ All assets loaded");
+    $('#loadingScreen').fadeOut(500);
+
+    // Göm spelet från början
+    $('#game').hide();
+
+    // Spela bakgrundsmusik
+    startScreenAudio.play();
+
+  }, (loaded, total) => {
+    //console.log(`Progress: ${loaded}/${total}`);
+    const percent = Math.floor((loaded / total) * 100);
+    $('.loading-fill').css('width', percent + '%');
+    $('.loading-text').text(`Laddar... ${percent}%`);
+  });
+
+  // preloadAssets(assets, () => {
+  //   // Artificial delay for testing
+  //   setTimeout(() => {
+  //     $('#loadingScreen').fadeOut(500);
+  //     initGame();
+  //   }, 20000); // 2000ms = 2 seconds
+  // }, (loaded, total) => {
+  //   const percent = Math.floor((loaded / total) * 100);
+  //   $('.loading-fill').css('width', percent + '%');
+  //   $('.loading-text').text(`Laddar... ${percent}%`);
+  // });
 
   // initLevel(currentLevel);
   // gameLoop();

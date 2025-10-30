@@ -29,6 +29,17 @@ h1 img {
   width: 500px;
 }
 
+#zoom-hint {
+  position:fixed;
+  right:12px;
+  bottom:12px;
+  padding:8px 10px;
+  background:#0008;
+  color:#fff;
+  border-radius:8px;
+  font:14px/1.2 system-ui;
+}
+
 #game {
   position: relative;
   width: 600px;
@@ -477,74 +488,64 @@ h1 img {
 .last {margin-right:0 !important; clear:right;}
 
 /* --- Loading screen overlay --- */
+/* Full overlay */
 #loadingScreen {
   position: fixed;
   inset: 0;
-  background-color: #211f30;
+  z-index: 9999;
+  font-family: "Gluten", ui-sans-serif, system-ui;
+  color: #fff;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: 'Concert One', cursive;
-  color: #3a2d1f;
-  z-index: 9999;
-}
-
-/* Center box */
-.loading-box {
-  background: #fff7e4;
-  border: 3px solid #6c5671;
-  border-radius: 14px;
-  box-shadow: inset 0 -4px 0 #dcc7b5;
-  padding: 30px 40px;
-  text-align: center;
-}
-
-/* Cute alpaca icon or sprite */
-.running-pixel img {
-  height: 48px;
-  width: 48px;
-}
-
-/* Loading text */
-.loading-text {
-  font-size: 18px;
-  margin: 10px 0;
-  letter-spacing: 1px;
-}
-
-/* Progress bar frame */
-.loading-bar {
-  width: 200px;
-  height: 18px;
-  background: #d1c49b;
-  border: 2px solid #6c5671;
-  border-radius: 4px;
+  background: linear-gradient(#78B3CE, #C9E6F0);
+  background-color: #C9E6F0;
+  background-image: url("https://www.transparenttextures.com/patterns/arches.png");
+  background-image: url("../img/bg/gray.png");
+  background-repeat: repeat;
   overflow: hidden;
-  margin-top: 6px;
+  text-shadow: 1px 1px 0px rgba(50, 50, 50, 0.2);
 }
 
-/* The filling part */
+/* Center area */
+.loading-scene {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  vertical-align: baseline;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 2;
+}
+
+.alpaca-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  animation: bob 1s ease-in-out infinite;
+}
+@keyframes bob { 50% { transform: translateY(-3px); } }
+
+.loading-text {
+  margin-top: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* Bottom horizon bar */
+.loading-bar-horizon {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: 5px;
+  overflow: hidden;
+  background: #ccc;
+}
+
 .loading-fill {
-  height: 100%;
   width: 0%;
-  background: repeating-linear-gradient(
-    45deg,
-    #b0eb93 0,
-    #b0eb93 10px,
-    #a0db83 10px,
-    #a0db83 20px
-  );
-  animation: loading-stripes 1s linear infinite;
-}
-
-/* Simple alpaca bounce */
-@keyframes bounce-loading {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-
-/* Diagonal stripe movement */
-@keyframes loading-stripes {
-  from { background-position: 0 0; }
-  to { background-position: 40px 0; }
+  height: 100%;
+  background: linear-gradient(90deg, #FF9A00, #FFD93D);
+  transition: width 0.15s linear;
 }

@@ -34,6 +34,12 @@ $(document).ready(function () {
   levelupAudio.volume = 0.3;
   hurtAudio.volume = 0.3;
 
+  // zoom-hint
+  const mac = /Mac|iPhone|iPad/.test(navigator.platform);
+  const mod = mac ? '⌘' : 'Ctrl';
+  $('#zoom-keys').text(`${mod} + / ${mod} −`);
+  $('#reset-keys').text(`${mod} 0`);
+
   // Array of background images
   var backgrounds = [
     'url(img/bg/blue.png)',
@@ -790,8 +796,9 @@ $(document).ready(function () {
 
   function startGame() {
     gameStarted = true;
+
     // Göm startskärmen och visa spelet
-    $('#start-screen').fadeOut(500, function() {
+    $('#start-screen, #zoom-hint').fadeOut(500, function() {
       $('#game').fadeIn(500); // Visa spelet
       startScreenAudio.pause();
       initLevel(currentLevel);
@@ -827,7 +834,7 @@ $(document).ready(function () {
   // När "Starta spel"-knappen klickas
   $('#start-button').click(function() {
     // Göm startskärmen och visa spelet
-    $('#start-screen').fadeOut(500, function() {
+    $('#start-screen, #zoom-hint').fadeOut(500, function() {
       $('#game').fadeIn(500); // Visa spelet
       startScreenAudio.pause();
       initLevel(currentLevel);
@@ -841,7 +848,7 @@ $(document).ready(function () {
     const selectedLevel = parseInt($(this).text(), 10); // Läser in texten och konverterar till ett nummer
 
     // Göm startskärmen och visa spelet
-    $('#levels-screen').fadeOut(500, function () {
+    $('#levels-screen, #zoom-hint').fadeOut(500, function () {
       $('#game').fadeIn(500); // Visa spelet
       startScreenAudio.pause(); // Pausa eventuell bakgrundsmusik på startskärmen
       currentLevel = selectedLevel;
@@ -862,7 +869,7 @@ $(document).ready(function () {
     // traps
     'img/traps/fire.gif',
     'img/traps/saw.gif',
-    'img/traps/spikes.gif',
+    'img/traps/spikes.png',
     // platforms
     'img/platforms/platform1.png',
     'img/platforms/platform2.png',
@@ -905,7 +912,7 @@ $(document).ready(function () {
     'img/bg/gray.png',
     'img/bg/green.png',
     'img/bg/pink.png',
-    'img/bg/purlpe.png',
+    'img/bg/purple.png',
     'img/bg/yellow.png',
   ];
 

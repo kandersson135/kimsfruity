@@ -11,9 +11,9 @@ $(document).ready(function () {
   let controlsLocked = false;
 
   let keys = {};
-  let playerSpeed = 3;
-  let jumpPower = 10;
-  let gravity = 0.5;
+  let playerSpeed = 2; // 3
+  let jumpPower = 8; // 10
+  let gravity = 0.3; // 0.5
   let velocityY = 0;
   let onGround = false;
   let collectedFruits = 0;

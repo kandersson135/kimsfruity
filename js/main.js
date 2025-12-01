@@ -11,9 +11,12 @@ $(document).ready(function () {
   let controlsLocked = false;
 
   let keys = {};
+  // let playerSpeed = 2; // 3
+  // let jumpPower = 8; // 10
+  // let gravity = 0.3; // 0.5
   let playerSpeed = 2; // 3
-  let jumpPower = 8; // 10
-  let gravity = 0.3; // 0.5
+  let jumpPower = 3.8; // 10
+  let gravity = 0.1; // 0.5
   let velocityY = 0;
   let onGround = false;
   let collectedFruits = 0;
@@ -490,11 +493,15 @@ $(document).ready(function () {
     if (!controlsLocked) {
       // Rörelse åt vänster och höger
       if (keys[37] || keys[65]) { // Vänster piltangent eller A
+        // Denna kod körs om Vänster är nedtryckt.
         currentDirection = 'left';
         setPlayerRun();
+        //player.css('left', Math.max(parseInt(player.css('left')) - playerSpeed, 0));
         player.css('left', Math.max(parseInt(player.css('left')) - playerSpeed, 0));
       }
+
       if (keys[39] || keys[68]) { // Höger piltangent eller D
+        // Denna kod körs ENDAST om Höger är nedtryckt OCH Vänster INTE är nedtryckt.
         currentDirection = 'right';
         setPlayerRun();
         player.css('left', Math.min(parseInt(player.css('left')) + playerSpeed, game.width() - player.width()));

@@ -876,18 +876,6 @@ $(document).ready(function () {
     });
   });
 
-  // preloadAssets(assets, () => {
-  //   // Artificial delay for testing
-  //   setTimeout(() => {
-  //     $('#loadingScreen').fadeOut(500);
-  //     initGame();
-  //   }, 20000); // 2000ms = 2 seconds
-  // }, (loaded, total) => {
-  //   const percent = Math.floor((loaded / total) * 100);
-  //   $('.loading-fill').css('width', percent + '%');
-  //   $('.loading-text').text(`Laddar... ${percent}%`);
-  // });
-
   // initLevel(currentLevel);
   // gameLoop();
 

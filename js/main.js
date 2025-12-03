@@ -876,6 +876,75 @@ $(document).ready(function () {
     });
   });
 
+  // Vänta med att starta spelet tills ALLA bilder är klara
+  (function () {
+    const assets = [
+      'img/bg/bgBorder.png',
+      'img/bg/blue.png',
+      'img/bg/brown.png',
+      'img/bg/gray.png',
+      'img/bg/green.png',
+      'img/bg/pink.png',
+      'img/bg/purple.png',
+      'img/bg/yellow.png',
+      'img/char/disappearing.gif',
+      'img/char/idle-l.gif',
+      'img/char/idle-r.gif',
+      'img/char/jump-l.gif',
+      'img/char/jump-l.png',
+      'img/char/jump-r.gif',
+      'img/char/jump-r.png',
+      'img/char/run-l.gif',
+      'img/char/run-r.gif',
+      'img/fruits/apple.gif',
+      'img/fruits/banana.gif',
+      'img/fruits/cherry.gif',
+      'img/fruits/collected.gif',
+      'img/fruits/kiwi.gif',
+      'img/fruits/melon.gif',
+      'img/fruits/orange.gif',
+      'img/fruits/pineapple.gif',
+      'img/misc/back.png',
+      'img/misc/game-title.png',
+      'img/misc/ground.png',
+      'img/misc/left-arrow.png',
+      'img/misc/levels.png',
+      'img/misc/next.png',
+      'img/misc/restart.png',
+      'img/misc/right-arrow.png',
+      'img/misc/up-arrow.png',
+      'img/platforms/platform1.png',
+      'img/platforms/platform2.png',
+      'img/platforms/platform3.png',
+      'img/platforms/platform4.png',
+      'img/platforms/platform5.png',
+      'img/traps/fire.gif',
+      'img/traps/saw.gif',
+      'img/traps/spikes.gif'
+    ];
+
+    let loaded = 0;
+
+    function checkDone() {
+      if (loaded === assets.length) {
+        // Nu får resten av sidan fortsätta
+        window.dispatchEvent(new Event('preloadDone'));
+      }
+    }
+
+    assets.forEach(src => {
+      const img = new Image();
+      img.onload = () => { loaded++; checkDone(); };
+      img.onerror = () => { loaded++; checkDone(); };
+      img.src = src;
+    });
+  })();
+
+  window.addEventListener('preloadDone', () => {
+    document.body.style.visibility = 'visible';
+    //startGame();
+  });
+
   // initLevel(currentLevel);
   // gameLoop();
 

@@ -32,18 +32,6 @@
     </div>
   </div> -->
 
-  <!-- Loading Overlay -->
-  <div id="loadingScreen" aria-hidden="false">
-    <div class="loading-scene">
-      <img class="alpaca-logo" src="img/char/run-r.gif" alt="Alpaca" />
-      <div class="loading-text">Loading... 0%</div>
-    </div>
-
-    <div class="loading-bar-horizon" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-      <div class="loading-fill"></div>
-    </div>
-  </div>
-
   <div id="start-screen">
     <div id="game-title" class="float"><img src="img/misc/game-title.png"></div>
     <div id="start-button">Starta spel</div>
@@ -200,6 +188,8 @@
       <div class="platform platform1" style="left: 100px; top: 230px;"></div>
       <div class="platform platform1" style="left: 300px; top: 180px;"></div>
       <div class="platform platform1" style="left: 500px; top: 120px;"></div>
+      <div class="trap spike" style="left: 440px; top: 253px;"></div>
+      <div class="trap spike" style="left: 220px; top: 253px;"></div>
       <div class="fruit apple" style="left: 110px; top: 200px;"></div>
       <div class="fruit apple" style="left: 310px; top: 150px;"></div>
       <div class="fruit apple" style="left: 510px; top: 90px;"></div>
@@ -241,10 +231,10 @@
       <div class="platform platform3" style="left: 246px; top: 237px;"></div>
       <div class="trap spike" style="left: 290px; top: 253px;"></div>
       <div class="trap spike" style="left: 315px; top: 253px;"></div>
-      <div class="platform platform3" style="left: 342px; top: 237px;"></div>
+      <!-- <div class="platform platform3" style="left: 342px; top: 237px;"></div> -->
       <div class="trap spike" style="left: 385px; top: 253px;"></div>
-      <div class="trap spike" style="left: 410px; top: 253px;"></div>
-      <div class="platform platform3" style="left: 438px; top: 237px;"></div>
+      <!-- <div class="trap spike" style="left: 410px; top: 253px;"></div> -->
+      <!-- <div class="platform platform3" style="left: 438px; top: 237px;"></div> -->
       <div class="trap spike" style="left: 480px; top: 253px;"></div>
       <div class="trap spike" style="left: 510px; top: 253px;"></div>
       <div class="platform platform3" style="left: 539px; top: 237px;"></div>
@@ -262,7 +252,7 @@
       <div class="platform platform1" style="left: 400px; top: 100px;"></div>
       <div class="platform platform1" style="left: 300px; top: 150px;"></div>
       <div class="platform platform1" style="left: 200px; top: 200px;"></div>
-      <div class="trap spike" style="left: 518px; top: 60px;"></div>
+      <div class="trap fire" style="left: 518px; top: 56px;"></div>
       <div class="platform platform3" style="left: 510px; top: 76px;"></div>
       <div class="platform platform3" style="left: 510px; top: 108px;"></div>
       <div class="platform platform3" style="left: 510px; top: 140px;"></div>
@@ -282,6 +272,8 @@
       <div class="platform platform5" style="left: 552px; top: 150px;"></div>
       <div class="platform platform5" style="left: 504px; top: 150px;"></div>
       <div class="platform platform5" style="left: 456px; top: 150px;"></div>
+      <div class="trap spike" style="left: 18px; top: 135px;"></div>
+      <div class="trap spike" style="left: 520px; top: 135px;"></div>
       <div class="fruit apple" style="left: 20px; top: 20px;"></div>
       <div class="fruit apple" style="left: 100px; top: 20px;"></div>
       <div class="fruit apple" style="left: 180px; top: 20px;"></div>
@@ -578,9 +570,10 @@
     </div>
   </div><!-- end game-container -->
 
-  <div id="zoom-hint">
+  <!-- <div id="zoom-hint">
     Press <span id="zoom-keys"></span> to zoom, <span id="reset-keys"></span> to reset.
-  </div> <!-- end zoom-hint -->
+  </div>  -->
+  <!-- end zoom-hint -->
 
   <!-- js -->
   <script src="js/jquery-3.6.0.min.js"></script>

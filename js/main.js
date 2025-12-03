@@ -482,12 +482,12 @@ $(document).ready(function () {
   // Uppdatera spelarens position i gameloopen
   function updatePlayerPosition() {
     if (isMovingLeft) {
-      player.css('left', Math.max(parseInt(player.css('left')) - playerSpeed, 0));
-      // player.css('left', Math.max(parseInt(player.css('left')) - 1.3, 0));
+      // player.css('left', Math.max(parseInt(player.css('left')) - playerSpeed, 0));
+      player.css('left', Math.max(parseInt(player.css('left')) - 1.3, 0));
     }
     if (isMovingRight) {
-      player.css('left', Math.min(parseInt(player.css('left')) + playerSpeed, game.width() - player.width()));
-      // player.css('left', Math.min(parseInt(player.css('left')) + 1.8, game.width() - player.width()));
+      // player.css('left', Math.min(parseInt(player.css('left')) + playerSpeed, game.width() - player.width()));
+      player.css('left', Math.min(parseInt(player.css('left')) + 1.8, game.width() - player.width()));
     }
   }
 
